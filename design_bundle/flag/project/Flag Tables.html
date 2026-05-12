@@ -1,0 +1,848 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flag · Tablas Enterprise · Rediseño</title>
+
+<!-- Bootstrap 5 (mismo entorno que Django/Base.html aproximado) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+<!-- Font Awesome para los íconos sort, CRUD, etc. -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<!-- Inter Tight (UI) + JetBrains Mono (números) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- El stylesheet rediseñado -->
+<link rel="stylesheet" href="flag-tables.css" />
+
+<style>
+    /* ========== shell de demo (NO forma parte del entregable) ========== */
+    html, body {
+        font-family: "Inter Tight", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+        background: #eef1f6;
+        color: #1f2937;
+        margin: 0;
+        font-size: 14px;
+        -webkit-font-smoothing: antialiased;
+    }
+    /* Override del font-family original — excluye Font Awesome */
+    .table, .table-app, .informes-table, button:not(.fas):not(.fa):not([class*="fa-"]),
+    input, select, .demo-shell, .demo-topbar {
+        font-family: "Inter Tight", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    }
+    /* Font Awesome icons mantienen su familia */
+    .fas, .fa, .far, .fab, [class*="fa-"] {
+        font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FontAwesome" !important;
+    }
+    .fas, [class*="fa-"]:not(.fab) { font-weight: 900 !important; }
+    .far { font-weight: 400 !important; }
+    /* Botones del button-group que SON el ícono (no tienen texto) */
+    .button-group .btn.fas, .button-group button.fas {
+        font-family: "Font Awesome 6 Free" !important;
+        font-weight: 900 !important;
+    }
+    .table-app, .informes-table, .table-app input, .table-app select {
+        font-feature-settings: "ss01", "tnum", "cv11";
+    }
+    .demo-shell {
+        max-width: 1480px;
+        margin: 0 auto;
+        padding: 32px 28px 64px;
+    }
+    .demo-h1 {
+        font-size: 22px;
+        font-weight: 700;
+        letter-spacing: -0.015em;
+        color: #141787;
+        margin: 0 0 4px;
+    }
+    .demo-h1 .badge-flag {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        background: #1E22AA;
+        color: #fff;
+        padding: 3px 8px;
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-right: 10px;
+        position: relative;
+        top: -2px;
+    }
+    .demo-sub {
+        color: #6b7280;
+        font-size: 13px;
+        margin: 0 0 24px;
+        max-width: 760px;
+        line-height: 1.55;
+    }
+    .demo-section-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #6b7280;
+        margin: 36px 0 10px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    .demo-section-title::before {
+        content: "";
+        width: 22px;
+        height: 2px;
+        background: #1E22AA;
+        display: inline-block;
+    }
+    .breadcrumb-flag {
+        font-size: 11px;
+        color: #9aa3b2;
+        margin-bottom: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.10em;
+    }
+    .breadcrumb-flag span { color: #6b7280; }
+    .breadcrumb-flag i { font-size: 8px; margin: 0 6px; opacity: 0.5; }
+
+    /* Toolbar superior fake (navbar-lite) */
+    .demo-topbar {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        padding: 12px 28px;
+        background: #fff;
+        border-bottom: 1px solid #e3e8f0;
+        margin: -32px -28px 28px;
+    }
+    .demo-topbar .logo {
+        font-weight: 700;
+        font-size: 13px;
+        letter-spacing: 0.04em;
+        color: #1E22AA;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+    .demo-topbar .logo::before {
+        content: "";
+        width: 18px; height: 18px;
+        background: linear-gradient(135deg, #1E22AA, #007bff);
+        border-radius: 4px;
+        display: inline-block;
+    }
+    .demo-topbar nav { display: flex; gap: 4px; font-size: 12.5px; }
+    .demo-topbar nav a {
+        padding: 6px 12px;
+        color: #6b7280;
+        text-decoration: none;
+        border-radius: 6px;
+        font-weight: 500;
+    }
+    .demo-topbar nav a.active { color: #1E22AA; background: #eef3fb; }
+    .demo-topbar .spacer { flex: 1; }
+    .demo-topbar .user {
+        display: flex; align-items: center; gap: 10px;
+        font-size: 12.5px; color: #6b7280;
+    }
+    .demo-topbar .user .avatar {
+        width: 28px; height: 28px; border-radius: 50%;
+        background: #eef3fb; color: #1E22AA;
+        display: inline-flex; align-items: center; justify-content: center;
+        font-weight: 700; font-size: 11px;
+    }
+
+    /* Mini-stats arriba del Index (contexto SAP-like) */
+    .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 18px; }
+    .stat {
+        background: #fff;
+        border: 1px solid #e3e8f0;
+        border-radius: 10px;
+        padding: 12px 14px;
+        box-shadow: 0 1px 2px rgba(20,23,135,0.04);
+    }
+    .stat .label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.10em; color: #6b7280; font-weight: 600; }
+    .stat .value { font-size: 20px; font-weight: 700; color: #141787; margin-top: 2px; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }
+    .stat .delta { font-size: 11px; color: #1f6024; margin-top: 2px; }
+    .stat .delta.down { color: #b42525; }
+
+    /* Filtros / search (no son parte del rediseño pero contextualizan) */
+    .filters-bar {
+        display: flex; align-items: center; gap: 10px;
+        margin-bottom: 14px;
+        flex-wrap: wrap;
+    }
+    .filters-bar .field {
+        display: inline-flex; align-items: center; gap: 6px;
+        background: #fff; border: 1px solid #e3e8f0; border-radius: 8px;
+        padding: 5px 10px; font-size: 12.5px; color: #6b7280;
+    }
+    .filters-bar .field input {
+        border: 0; outline: 0; font-size: 12.5px; min-width: 180px;
+        background: transparent; color: #1f2937;
+    }
+    .filters-bar .field i { color: #9aa3b2; font-size: 11px; }
+    .filters-bar .chip {
+        background: rgba(30,34,170,0.06); color: #1E22AA;
+        border: 1px solid rgba(30,34,170,0.18); border-radius: 999px;
+        padding: 3px 10px; font-size: 11.5px; font-weight: 500;
+        display: inline-flex; align-items: center; gap: 6px;
+    }
+    .filters-bar .chip i { font-size: 9px; opacity: 0.6; }
+    .filters-bar .row-count { margin-left: auto; font-size: 11.5px; color: #6b7280; }
+    .filters-bar .row-count strong { color: #1f2937; }
+
+    /* Tweaks panel hooks */
+    .demo-shell[data-density="compact"] { --flag-row-h: 30px; }
+    .demo-shell[data-density="comfortable"] { --flag-row-h: 38px; }
+    .demo-shell[data-density="compact"] .table-app tbody td { height: 30px; padding-top: 0.22rem; padding-bottom: 0.22rem; }
+    .demo-shell[data-density="comfortable"] .table-app tbody td { height: 38px; padding-top: 0.5rem; padding-bottom: 0.5rem; }
+</style>
+</head>
+<body>
+
+<div class="demo-topbar">
+    <div class="logo">FLAG ERP</div>
+    <nav>
+        <a href="#">Dashboard</a>
+        <a href="#" class="active">Maestros</a>
+        <a href="#">Movimientos</a>
+        <a href="#">Informes</a>
+        <a href="#">Indicadores</a>
+    </nav>
+    <div class="spacer"></div>
+    <div class="user">
+        <span>v6.4.0</span>
+        <span class="avatar">JR</span>
+    </div>
+</div>
+
+<div class="demo-shell" data-density="default">
+
+    <div class="breadcrumb-flag">
+        <span>Maestros</span> <i class="fas fa-chevron-right"></i>
+        <span>Comerciales</span> <i class="fas fa-chevron-right"></i>
+        Clientes
+    </div>
+    <h1 class="demo-h1"><span class="badge-flag">Demo</span>Tablas Enterprise · Rediseño visual</h1>
+    <p class="demo-sub">
+        Rediseño <strong>CSS-only</strong> sobre las clases existentes — <code>.card</code>, <code>.table-app-wrap</code>,
+        <code>.table-app</code>, <code>.sortable</code>, <code>.button-group</code>, <code>.informes-table</code>,
+        <code>.boolean-display</code>. Sin tocar templates ni HTML.
+    </p>
+
+    <!-- ============================================================== -->
+    <!-- 1 · TABLA MAESTRA (CLIENTES) — patrón principal                 -->
+    <!-- ============================================================== -->
+    <div class="demo-section-title">1 · Tabla Maestra · Clientes</div>
+
+    <div class="stat-row">
+        <div class="stat"><div class="label">Total clientes</div><div class="value">248</div><div class="delta">+4 este mes</div></div>
+        <div class="stat"><div class="label">Activos</div><div class="value">231</div><div class="delta">93,1%</div></div>
+        <div class="stat"><div class="label">Nuevos · 2026</div><div class="value">17</div><div class="delta">+2 vs 2025</div></div>
+        <div class="stat"><div class="label">Inactivos</div><div class="value">17</div><div class="delta down">−3 mes</div></div>
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Clientes</h4>
+            <div class="button-group">
+                <a class="btn btn-outline-primary fas fa-plus-circle" title="Crear" href="#" role="button"></a>
+                <a id="edit-button" class="btn btn-outline-primary fas fa-edit" title="Editar" href="#" role="button"></a>
+                <i class="btn btn-outline-primary fas fa-eye" title="Visualizar" role="button"></i>
+                <button type="submit" class="btn btn-outline-danger fas fa-trash-alt" title="Eliminar"></button>
+                <form>
+                    <button type="submit" class="btn btn-outline-info fas fa-download" title="Descargar"></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="filters-bar">
+                <div class="field"><i class="fas fa-search"></i><input type="text" placeholder="Buscar cliente, NIT, ciudad…" /></div>
+                <span class="chip">Activos <i class="fas fa-times"></i></span>
+                <span class="chip">Bogotá <i class="fas fa-times"></i></span>
+                <span class="row-count"><strong>248</strong> registros · Página 1 de 6</span>
+            </div>
+        </div>
+
+        <div class="card-footer text-muted">
+            <div class="table-responsive table-app-wrap table-app-pin-2">
+                <form id="delete-form" method="POST" action="#">
+                    <table class="table table-primary table-app" id="infoClientesTable">
+                        <colgroup>
+                            <col style="width:40px"/>
+                            <col style="width:130px"/>
+                            <col style="min-width:200px"/>
+                            <col style="width:90px"/>
+                            <col style="width:120px"/>
+                            <col style="width:130px"/>
+                            <col style="width:140px"/>
+                            <col style="width:160px"/>
+                            <col style="width:130px"/>
+                            <col style="width:200px"/>
+                            <col style="width:200px"/>
+                            <col style="width:120px"/>
+                            <col style="width:110px"/>
+                            <col style="width:80px"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th><input type="checkbox" id="select-all-1"></th>
+                                <th data-sort="documento" class="sortable" data-direction="asc">
+                                    Documento ID
+                                    <span class="sort-icon">
+                                        <i class="fas fa-sort sort-icon-default"></i>
+                                        <i class="fas fa-sort-up sort-icon-asc"></i>
+                                        <i class="fas fa-sort-down sort-icon-desc"></i>
+                                    </span>
+                                </th>
+                                <th data-sort="nombre" class="sortable" data-direction="default">
+                                    Nombre Cliente
+                                    <span class="sort-icon">
+                                        <i class="fas fa-sort sort-icon-default"></i>
+                                    </span>
+                                </th>
+                                <th data-sort="activo" class="sortable" data-direction="default">Estado <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="fecha_inicio" class="sortable text-end" data-direction="default">Fecha Inicio <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="ciudad" class="sortable" data-direction="default">Ciudad <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="departamento" class="sortable" data-direction="default">Departamento <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="contacto" class="sortable" data-direction="default">Contacto Principal <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="telefono" class="sortable text-end" data-direction="default">Teléfono <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="correo" class="sortable" data-direction="default">Correo Electrónico <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="buzon" class="sortable" data-direction="default">Buzón Facturación <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="tipo_cliente" class="sortable" data-direction="default">Tipo Cliente <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="pais" class="sortable" data-direction="default">País <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                                <th data-sort="nacional" class="sortable" data-direction="default">Nacional <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                            </tr>
+                        </thead>
+                        <tbody id="clientes-tbody">
+                            <!-- inyectadas por JS para mantener el HTML demo limpio -->
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td><strong>248 clientes</strong></td>
+                                <td></td>
+                                <td><span class="boolean-display true">231 activos</span></td>
+                                <td class="text-end">—</td>
+                                <td>14 ciudades</td>
+                                <td>9 departamentos</td>
+                                <td></td>
+                                <td class="text-end">—</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td>4 países</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 2 · TABLA DE MOVIMIENTOS — inputs inline editables               -->
+    <!-- ============================================================== -->
+    <div class="demo-section-title">2 · Movimientos · Registro de tiempos (inline edit)</div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Registro de tiempos · Mayo 2026</h4>
+            <div class="button-group">
+                <button class="btn btn-outline-primary fas fa-plus-circle" title="Nueva fila"></button>
+                <button class="btn btn-outline-primary fas fa-edit" title="Editar"></button>
+                <button class="btn btn-outline-success fas fa-save" title="Guardar"></button>
+                <button class="btn btn-outline-danger fas fa-times" title="Cancelar"></button>
+                <form>
+                    <button class="btn btn-outline-info fas fa-download" title="Exportar Excel"></button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="filters-bar">
+                <div class="field"><i class="far fa-calendar"></i><input type="text" value="2026-05" style="min-width:90px"/></div>
+                <div class="field"><i class="fas fa-user"></i><input type="text" placeholder="Filtrar consultor"/></div>
+                <span class="chip">Mes en edición <i class="fas fa-times"></i></span>
+                <span class="row-count"><strong>12</strong> consultores · <strong>1.840 h</strong> mes</span>
+            </div>
+        </div>
+
+        <div class="card-footer text-muted">
+            <div class="table-responsive table-app-wrap">
+                <table class="table table-app">
+                    <colgroup>
+                        <col style="width:200px"/>
+                        <col style="width:100px"/>
+                        <col style="width:170px"/>
+                        <col span="10" style="width:56px"/>
+                        <col style="width:72px"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>Consultor</th>
+                            <th>Línea</th>
+                            <th>Cliente</th>
+                            <th class="text-end">L 5</th>
+                            <th class="text-end">M 6</th>
+                            <th class="text-end">X 7</th>
+                            <th class="text-end">J 8</th>
+                            <th class="text-end">V 9</th>
+                            <th class="text-end">L 12</th>
+                            <th class="text-end">M 13</th>
+                            <th class="text-end">X 14</th>
+                            <th class="text-end">J 15</th>
+                            <th class="text-end">V 16</th>
+                            <th class="text-end">Total</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tiempos-tbody"></tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Total horas día</th>
+                            <td>—</td>
+                            <td>—</td>
+                            <td class="text-end" id="t-d1">0</td>
+                            <td class="text-end" id="t-d2">0</td>
+                            <td class="text-end" id="t-d3">0</td>
+                            <td class="text-end" id="t-d4">0</td>
+                            <td class="text-end" id="t-d5">0</td>
+                            <td class="text-end" id="t-d6">0</td>
+                            <td class="text-end" id="t-d7">0</td>
+                            <td class="text-end" id="t-d8">0</td>
+                            <td class="text-end" id="t-d9">0</td>
+                            <td class="text-end" id="t-d10">0</td>
+                            <td class="text-end" id="t-total">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- 3 · INFORMES — tabla densa con totales, columnas anchas         -->
+    <!-- ============================================================== -->
+    <div class="demo-section-title">3 · Informes · Facturación por cliente (alta densidad)</div>
+
+    <div class="card">
+        <div class="card-header">
+            <h4 class="card-title">Informe · Facturación por cliente · 2026</h4>
+            <div class="button-group">
+                <button class="btn btn-outline-primary fas fa-filter" title="Filtros"></button>
+                <button class="btn btn-outline-primary fas fa-eye" title="Visualizar"></button>
+                <button class="btn btn-outline-info fas fa-download" title="Exportar"></button>
+                <button class="btn btn-outline-info fas fa-print" title="Imprimir"></button>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="filters-bar">
+                <span class="chip">Año 2026 <i class="fas fa-times"></i></span>
+                <span class="chip">Línea: TI <i class="fas fa-times"></i></span>
+                <span class="chip">Activos <i class="fas fa-times"></i></span>
+                <span class="row-count"><strong>15</strong> clientes · <strong>$8.420 M</strong> año</span>
+            </div>
+        </div>
+
+        <div class="card-footer text-muted">
+            <div class="table-responsive-informes">
+                <table class="table table-app informes-table">
+                    <colgroup>
+                        <col style="min-width:200px"/>
+                        <col style="width:90px"/>
+                        <col span="12" style="width:88px"/>
+                        <col style="width:108px"/>
+                        <col style="width:80px"/>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-direction="default">Cliente <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                            <th class="sortable" data-direction="default">Línea <span class="sort-icon"><i class="fas fa-sort"></i></span></th>
+                            <th class="sortable text-end" data-direction="desc">Ene <span class="sort-icon"><i class="fas fa-sort-down"></i></span></th>
+                            <th class="text-end">Feb</th>
+                            <th class="text-end">Mar</th>
+                            <th class="text-end">Abr</th>
+                            <th class="text-end">May</th>
+                            <th class="text-end">Jun</th>
+                            <th class="text-end">Jul</th>
+                            <th class="text-end">Ago</th>
+                            <th class="text-end">Sep</th>
+                            <th class="text-end">Oct</th>
+                            <th class="text-end">Nov</th>
+                            <th class="text-end">Dic</th>
+                            <th class="text-end">Total año</th>
+                            <th class="text-end">% Var.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="informes-tbody"></tbody>
+                    <tfoot>
+                        <tr id="informes-tfoot">
+                            <th>Total</th>
+                            <td>—</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- Notas finales                                                    -->
+    <!-- ============================================================== -->
+    <div class="demo-section-title">Detalles del rediseño</div>
+
+    <div class="card">
+        <div class="card-body" style="padding: 20px 24px;">
+            <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:18px; font-size:12.5px; color:#1f2937; line-height:1.55;">
+                <div>
+                    <strong style="color:#141787;">Header limpio</strong><br>
+                    <span style="color:#6b7280;">Fondo blanco · texto azul corporativo · línea inferior 2px (estilo Fiori).</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Densidad operativa</strong><br>
+                    <span style="color:#6b7280;">Fila 34px · padding 6×10 · tipografía 13px tabular-nums.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Cuadrícula sutil</strong><br>
+                    <span style="color:#6b7280;">Bordes <code>#e3e8f0</code> entre columnas · zebra <code>#f7f9fc</code>.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Sticky multi-eje</strong><br>
+                    <span style="color:#6b7280;">Header + 1ª columna + footer + 2ª columna opcional <code>.table-app-pin-2</code>.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Scroll-shadows CSS puro</strong><br>
+                    <span style="color:#6b7280;">Técnica de máscaras laterales con <code>background-attachment: local/scroll</code>.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Inputs invisibles</strong><br>
+                    <span style="color:#6b7280;">Plaintext sin borde · focus ring azul translúcido <code>0 0 0 3px rgba(30,34,170,.16)</code>.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Sort icons sutiles</strong><br>
+                    <span style="color:#6b7280;">Opacidad 0.32 default · primario al hover y al estar activo.</span>
+                </div>
+                <div>
+                    <strong style="color:#141787;">Boolean chips</strong><br>
+                    <span style="color:#6b7280;">SI/NO con dot-indicator · verde sobrio · gris muted.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================== -->
+<!--   Tweaks panel + interactividad                                  -->
+<!-- ============================================================== -->
+<script>
+// ---------- DATOS DEMO -----------
+const CLIENTES = [
+    { sel:false, doc:"800.149.923-6", nom:"Banco Andino S.A.",            act:true,  fecha:"2018-03-12", ciu:"Bogotá D.C.",  dep:"Cundinamarca", contacto:"María Restrepo", tel:"+57 601 745-2200", correo:"facturacion@bancoandino.com", buzon:"facturas@bancoandino.com", tipo:"Corporativo", pais:"Colombia", nac:true },
+    { sel:true,  doc:"830.512.444-2", nom:"Constructora Pacífico Ltda.",  act:true,  fecha:"2020-08-04", ciu:"Cali",         dep:"Valle",       contacto:"Luis F. Mejía",     tel:"+57 602 489-0011", correo:"l.mejia@pacifico.co",        buzon:"contabilidad@pacifico.co",  tipo:"PyME",        pais:"Colombia", nac:true },
+    { sel:false, doc:"900.221.187-1", nom:"GreenEnergy Solutions",        act:true,  fecha:"2021-11-23", ciu:"Medellín",     dep:"Antioquia",   contacto:"Andrea Posada",      tel:"+57 604 322-7788", correo:"a.posada@greenenergy.com",   buzon:"ap@greenenergy.com",        tipo:"Corporativo", pais:"Colombia", nac:true },
+    { sel:false, doc:"805.337.094-4", nom:"Distribuidora del Sur S.A.S.", act:true,  fecha:"2017-02-15", ciu:"Cali",         dep:"Valle",       contacto:"Carlos Rincón",      tel:"+57 602 800-1234", correo:"c.rincon@delsur.com",        buzon:"facturas@delsur.com",       tipo:"PyME",        pais:"Colombia", nac:true },
+    { sel:false, doc:"J-30412005-3",  nom:"Petroquímica Caracas C.A.",    act:false, fecha:"2015-06-30", ciu:"Caracas",      dep:"Distrito Capital", contacto:"José Velázquez", tel:"+58 212 555-7800", correo:"jvelazquez@petroquimica.ve", buzon:"cuentas@petroquimica.ve",   tipo:"Corporativo", pais:"Venezuela",nac:false },
+    { sel:false, doc:"890.901.226-7", nom:"Universidad del Norte",        act:true,  fecha:"2019-01-09", ciu:"Barranquilla", dep:"Atlántico",   contacto:"Diana Salcedo",      tel:"+57 605 350-9509", correo:"d.salcedo@uninorte.edu.co",  buzon:"facturas@uninorte.edu.co",  tipo:"Educativo",   pais:"Colombia", nac:true },
+    { sel:false, doc:"20-12345678-1", nom:"Tecnoplus Argentina S.R.L.",   act:true,  fecha:"2022-09-01", ciu:"Buenos Aires", dep:"CABA",        contacto:"Pablo Iturri",        tel:"+54 11 4324-9000", correo:"p.iturri@tecnoplus.com.ar",  buzon:"facturas@tecnoplus.com.ar", tipo:"Corporativo", pais:"Argentina",nac:false },
+    { sel:false, doc:"830.078.554-8", nom:"Logística Río Grande S.A.",    act:true,  fecha:"2016-12-18", ciu:"Bogotá D.C.",  dep:"Cundinamarca",contacto:"Sandra Martínez",     tel:"+57 601 411-2255", correo:"smartinez@riogrande.co",     buzon:"cobros@riogrande.co",       tipo:"PyME",        pais:"Colombia", nac:true },
+    { sel:false, doc:"900.456.778-2", nom:"AgroVida del Caribe",          act:true,  fecha:"2020-04-22", ciu:"Cartagena",    dep:"Bolívar",     contacto:"Ricardo Borja",       tel:"+57 605 660-1188", correo:"r.borja@agrovida.com",       buzon:"contabilidad@agrovida.com", tipo:"PyME",        pais:"Colombia", nac:true },
+    { sel:false, doc:"811.000.512-9", nom:"Salud Total IPS",              act:false, fecha:"2014-07-07", ciu:"Medellín",     dep:"Antioquia",   contacto:"Marcela Vélez",       tel:"+57 604 444-9090", correo:"m.velez@saludtotal.co",      buzon:"facturas@saludtotal.co",    tipo:"Salud",       pais:"Colombia", nac:true },
+    { sel:false, doc:"860.075.111-0", nom:"InverHogar S.A.",              act:true,  fecha:"2021-03-15", ciu:"Bogotá D.C.",  dep:"Cundinamarca",contacto:"Felipe Cárdenas",     tel:"+57 601 256-3344", correo:"f.cardenas@inverhogar.co",   buzon:"facturas@inverhogar.co",    tipo:"Corporativo", pais:"Colombia", nac:true },
+    { sel:false, doc:"900.115.660-3", nom:"Aerolíneas Andinas S.A.S.",    act:true,  fecha:"2019-10-30", ciu:"Bogotá D.C.",  dep:"Cundinamarca",contacto:"Natalia Gómez",       tel:"+57 601 765-3221", correo:"n.gomez@aerandinas.co",      buzon:"contab@aerandinas.co",      tipo:"Corporativo", pais:"Colombia", nac:true },
+];
+
+const CONSULTORES = [
+    { nom:"María Restrepo",  linea:"TI",     cli:"Banco Andino",     d:[8,8,8,8,8,8,8,7,8,4] },
+    { nom:"Juan P. Ortiz",   linea:"TI",     cli:"GreenEnergy",      d:[8,8,8,7,4,8,8,8,8,8] },
+    { nom:"Andrea Posada",   linea:"PMO",    cli:"Pacífico Ltda.",   d:[8,8,4,8,8,8,8,8,8,8] },
+    { nom:"Luis F. Mejía",   linea:"PMO",    cli:"Pacífico Ltda.",   d:[6,8,8,8,8,8,8,8,8,8] },
+    { nom:"Diana Salcedo",   linea:"Datos",  cli:"Uninorte",         d:[8,8,8,8,8,7,8,8,8,8] },
+    { nom:"Pablo Iturri",    linea:"Datos",  cli:"Tecnoplus AR",     d:[7,8,8,8,8,8,8,4,8,8] },
+    { nom:"Sandra Martínez", linea:"TI",     cli:"Río Grande",       d:[8,8,8,8,8,8,4,8,8,8] },
+    { nom:"Ricardo Borja",   linea:"Negocio",cli:"AgroVida",         d:[8,8,8,4,8,8,8,8,8,8] },
+    { nom:"Felipe Cárdenas", linea:"Negocio",cli:"InverHogar",       d:[8,8,8,8,8,8,8,8,4,8] },
+    { nom:"Natalia Gómez",   linea:"PMO",    cli:"Aerolíneas A.",    d:[8,8,8,8,4,8,8,8,8,8] },
+];
+
+const INFORMES = [
+    { cli:"Banco Andino S.A.",            linea:"TI",      m:[112_400_000, 118_200_000, 121_500_000, 124_800_000, 128_300_000, 130_100_000, 0,0,0,0,0,0], variant:"+12,4%" },
+    { cli:"Constructora Pacífico Ltda.",  linea:"PMO",     m:[ 78_500_000,  82_100_000,  85_400_000,  86_900_000,  89_200_000,  92_400_000, 0,0,0,0,0,0], variant:"+8,1%"  },
+    { cli:"GreenEnergy Solutions",        linea:"TI",      m:[ 64_300_000,  66_800_000,  69_700_000,  71_200_000,  73_500_000,  75_100_000, 0,0,0,0,0,0], variant:"+6,9%"  },
+    { cli:"Distribuidora del Sur S.A.S.", linea:"Negocio", m:[ 45_900_000,  47_300_000,  46_800_000,  48_200_000,  49_900_000,  51_400_000, 0,0,0,0,0,0], variant:"+4,2%"  },
+    { cli:"Universidad del Norte",        linea:"Datos",   m:[ 38_700_000,  39_200_000,  41_500_000,  42_900_000,  44_300_000,  45_600_000, 0,0,0,0,0,0], variant:"+5,1%"  },
+    { cli:"Tecnoplus Argentina S.R.L.",   linea:"Datos",   m:[ 32_400_000,  33_900_000,  35_100_000,  36_700_000,  38_200_000,  39_500_000, 0,0,0,0,0,0], variant:"+7,8%"  },
+    { cli:"Logística Río Grande S.A.",    linea:"TI",      m:[ 29_800_000,  31_100_000,  32_700_000,  33_900_000,  35_400_000,  36_800_000, 0,0,0,0,0,0], variant:"+5,5%"  },
+    { cli:"AgroVida del Caribe",          linea:"Negocio", m:[ 24_500_000,  25_300_000,  26_100_000,  27_400_000,  28_700_000,  29_900_000, 0,0,0,0,0,0], variant:"+3,9%"  },
+    { cli:"InverHogar S.A.",              linea:"PMO",     m:[ 21_700_000,  22_400_000,  23_100_000,  24_300_000,  25_500_000,  26_800_000, 0,0,0,0,0,0], variant:"+4,6%"  },
+    { cli:"Aerolíneas Andinas S.A.S.",    linea:"PMO",     m:[ 41_200_000,  42_800_000,  44_500_000,  46_100_000,  47_900_000,  49_300_000, 0,0,0,0,0,0], variant:"+5,3%"  },
+];
+
+// ---------- RENDER -----------
+const COP = (n) => n === 0 ? "—" : new Intl.NumberFormat('es-CO').format(n);
+
+// Cambio estructural: las tablas de VISUALIZACIÓN usan texto plano dentro de <td>,
+// igual que la tabla de informes. Solo se inyectan <input> en modo edición.
+function renderClientes() {
+    const tb = document.getElementById('clientes-tbody');
+    tb.innerHTML = CLIENTES.map((c,i) => `
+        <tr>
+            <td><input type="checkbox" class="row-select" ${c.sel?'checked':''}/></td>
+            <td data-field="documento" class="text-end mono">${c.doc}</td>
+            <td data-field="nombre"><strong>${c.nom}</strong></td>
+            <td data-field="activo"><span class="boolean-display ${c.act?'true':'false'}">${c.act?'Activo':'Inactivo'}</span></td>
+            <td data-field="fecha_inicio" class="text-end mono">${c.fecha}</td>
+            <td data-field="ciudad">${c.ciu}</td>
+            <td data-field="departamento">${c.dep}</td>
+            <td data-field="contacto">${c.contacto}</td>
+            <td data-field="telefono" class="text-end mono">${c.tel}</td>
+            <td data-field="correo" class="muted">${c.correo}</td>
+            <td data-field="buzon" class="muted">${c.buzon}</td>
+            <td data-field="tipo_cliente">${c.tipo}</td>
+            <td data-field="pais">${c.pais}</td>
+            <td data-field="nacional"><span class="boolean-display ${c.nac?'true':'false'}">${c.nac?'SI':'NO'}</span></td>
+        </tr>
+    `).join('');
+}
+
+let TIEMPOS_EDIT = false;
+function renderTiempos() {
+    const tb = document.getElementById('tiempos-tbody');
+    tb.innerHTML = CONSULTORES.map((c,ri) => {
+        const total = c.d.reduce((a,b)=>a+b,0);
+        const cells = c.d.map((v,di)=>`
+            <td class="text-end">
+                <input type="number" class="${TIEMPOS_EDIT?'form-control':'form-control-plaintext'} text-end horas-input" value="${v}" data-row="${ri}" data-col="${di}" ${TIEMPOS_EDIT?'':'readonly'}/>
+            </td>`).join('');
+        return `
+            <tr>
+                <td><strong>${c.nom}</strong></td>
+                <td><span class="boolean-display" style="background:rgba(30,34,170,.06); color:#1E22AA; border-color:rgba(30,34,170,.18);">${c.linea}</span></td>
+                <td>${c.cli}</td>
+                ${cells}
+                <td class="text-end" id="t-row-${ri}" style="font-weight:600; color:#141787;">${total}</td>
+            </tr>`;
+    }).join('');
+    recalcTiempos();
+}
+
+function recalcTiempos() {
+    const sums = new Array(10).fill(0);
+    let total = 0;
+    CONSULTORES.forEach((c, ri) => {
+        let row = 0;
+        c.d.forEach((v, di) => { sums[di] += v; row += v; });
+        const cell = document.getElementById(`t-row-${ri}`);
+        if (cell) cell.textContent = row;
+        total += row;
+    });
+    sums.forEach((s,i) => {
+        const el = document.getElementById(`t-d${i+1}`);
+        if (el) el.textContent = s;
+    });
+    document.getElementById('t-total').textContent = total;
+}
+
+function renderInformes() {
+    const tb = document.getElementById('informes-tbody');
+    tb.innerHTML = INFORMES.map(r => {
+        const tot = r.m.reduce((a,b)=>a+b,0);
+        return `
+            <tr>
+                <td>${r.cli}</td>
+                <td><span class="boolean-display" style="background:rgba(30,34,170,.06); color:#1E22AA; border-color:rgba(30,34,170,.18);">${r.linea}</span></td>
+                ${r.m.map(v=>`<td class="text-end">${COP(v)}</td>`).join('')}
+                <td class="text-end" style="color:#141787; font-weight:600;">${COP(tot)}</td>
+                <td class="text-end" style="color:#1f6024; font-weight:600;">${r.variant}</td>
+            </tr>`;
+    }).join('');
+
+    const tf = document.getElementById('informes-tfoot');
+    const totals = new Array(12).fill(0);
+    INFORMES.forEach(r => r.m.forEach((v,i)=>totals[i]+=v));
+    const grand = totals.reduce((a,b)=>a+b,0);
+    tf.innerHTML = `
+        <th>Total</th>
+        <td>—</td>
+        ${totals.map(v=>`<td class="text-end">${COP(v)}</td>`).join('')}
+        <td class="text-end">${COP(grand)}</td>
+        <td class="text-end" style="color:#1f6024;">+6,4%</td>
+    `;
+}
+
+renderClientes();
+renderTiempos();
+renderInformes();
+
+// Sort header toggle (puramente visual para la demo)
+document.querySelectorAll('.sortable').forEach(th => {
+    th.addEventListener('click', () => {
+        const cur = th.getAttribute('data-direction');
+        const next = cur === 'default' ? 'asc' : (cur === 'asc' ? 'desc' : 'default');
+        // limpia hermanos
+        const siblings = th.parentElement.querySelectorAll('.sortable');
+        siblings.forEach(s => s.setAttribute('data-direction','default'));
+        th.setAttribute('data-direction', next);
+    });
+});
+
+// Toggle edit en tabla 2
+const editBtnTiempos = document.querySelector('.card:nth-of-type(2) .btn.fa-edit');
+// ----- TWEAKS PANEL -----
+(function tweaks() {
+    const root = document.querySelector('.demo-shell');
+    const panel = document.createElement('div');
+    panel.id = 'tweaks-panel';
+    panel.innerHTML = `
+        <div class="tw-head">
+            <span>Tweaks</span>
+            <button class="tw-close" title="Cerrar">×</button>
+        </div>
+        <div class="tw-body">
+            <div class="tw-row">
+                <label>Densidad de fila</label>
+                <div class="tw-seg">
+                    <button data-density="compact">Compacta</button>
+                    <button data-density="default" class="active">Default</button>
+                    <button data-density="comfortable">Cómoda</button>
+                </div>
+            </div>
+            <div class="tw-row">
+                <label>Modo edición · Tiempos</label>
+                <div class="tw-seg">
+                    <button data-edit="off" class="active">Lectura</button>
+                    <button data-edit="on">Edición</button>
+                </div>
+            </div>
+            <div class="tw-row">
+                <label>2ª columna sticky · Clientes</label>
+                <div class="tw-seg">
+                    <button data-pin2="off">Off</button>
+                    <button data-pin2="on" class="active">On</button>
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(panel);
+
+    const css = document.createElement('style');
+    css.textContent = `
+        #tweaks-panel {
+            position: fixed; right: 22px; bottom: 22px; z-index: 9999;
+            width: 280px;
+            background: #fff; border: 1px solid #e3e8f0; border-radius: 10px;
+            box-shadow: 0 12px 28px -8px rgba(20,23,135,0.18), 0 2px 4px rgba(20,23,135,0.06);
+            font-family: "Inter Tight", system-ui, sans-serif;
+            font-size: 12px; color: #1f2937; overflow: hidden;
+        }
+        #tweaks-panel .tw-head {
+            padding: 10px 12px;
+            background: linear-gradient(180deg, #fafbfd, #f4f6fa);
+            border-bottom: 1px solid #e3e8f0;
+            font-weight: 700; font-size: 11px; letter-spacing: 0.12em;
+            text-transform: uppercase; color: #1E22AA;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        #tweaks-panel .tw-close {
+            background: transparent; border: 0; font-size: 18px; line-height: 1;
+            color: #6b7280; cursor: pointer; padding: 0 4px; margin: 0;
+        }
+        #tweaks-panel .tw-close:hover { color: #1E22AA; }
+        #tweaks-panel .tw-body { padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+        #tweaks-panel .tw-row label {
+            display: block; font-size: 10.5px; text-transform: uppercase;
+            letter-spacing: 0.10em; color: #6b7280; margin-bottom: 6px; font-weight: 600;
+        }
+        #tweaks-panel .tw-seg {
+            display: flex; background: #f4f6fa; border: 1px solid #e3e8f0;
+            border-radius: 6px; padding: 2px; gap: 2px;
+        }
+        #tweaks-panel .tw-seg button {
+            flex: 1; padding: 5px 8px; font-size: 11.5px; font-weight: 500;
+            background: transparent; color: #6b7280; border: 0; border-radius: 4px;
+            cursor: pointer; transition: all 90ms ease; margin: 0;
+        }
+        #tweaks-panel .tw-seg button:hover { color: #1E22AA; transform: none; box-shadow: none; }
+        #tweaks-panel .tw-seg button.active {
+            background: #fff; color: #1E22AA; font-weight: 600;
+            box-shadow: 0 1px 2px rgba(20,23,135,0.06);
+        }
+        #tweaks-toggle {
+            position: fixed; right: 22px; bottom: 22px; z-index: 9998;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: #1E22AA; color: #fff; border: 0;
+            box-shadow: 0 6px 16px -4px rgba(20,23,135,0.5);
+            cursor: pointer; font-size: 16px; display:none; align-items:center; justify-content:center;
+            margin: 0;
+        }
+        #tweaks-toggle:hover { background: #141787; transform: none; }
+    `;
+    document.head.appendChild(css);
+
+    const toggleBtn = document.createElement('button');
+    toggleBtn.id = 'tweaks-toggle';
+    toggleBtn.innerHTML = '<i class="fas fa-sliders-h"></i>';
+    document.body.appendChild(toggleBtn);
+
+    panel.querySelector('.tw-close').addEventListener('click', () => {
+        panel.style.display = 'none';
+        toggleBtn.style.display = 'flex';
+    });
+    toggleBtn.addEventListener('click', () => {
+        panel.style.display = '';
+        toggleBtn.style.display = 'none';
+    });
+
+    panel.querySelectorAll('[data-density]').forEach(b => b.addEventListener('click', () => {
+        panel.querySelectorAll('[data-density]').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        root.setAttribute('data-density', b.dataset.density);
+    }));
+
+    panel.querySelectorAll('[data-edit]').forEach(b => b.addEventListener('click', () => {
+        panel.querySelectorAll('[data-edit]').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        TIEMPOS_EDIT = b.dataset.edit === 'on';
+        renderTiempos();
+        // re-bind change listeners
+        document.querySelectorAll('.horas-input').forEach(inp => {
+            inp.addEventListener('input', e => {
+                const r = +e.target.dataset.row, c = +e.target.dataset.col;
+                CONSULTORES[r].d[c] = +e.target.value || 0;
+                recalcTiempos();
+            });
+        });
+    }));
+
+    panel.querySelectorAll('[data-pin2]').forEach(b => b.addEventListener('click', () => {
+        panel.querySelectorAll('[data-pin2]').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        const wrap = document.querySelector('.card:first-of-type .table-app-wrap');
+        if (wrap) wrap.classList.toggle('table-app-pin-2', b.dataset.pin2 === 'on');
+    }));
+})();
+</script>
+</body>
+</html>
+
+<style id="__om-edit-overrides">
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: 1px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: 3px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: 7px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: 55px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: -21px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: -9px 12.1px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { margin: 0px 12.1px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { padding: 5px 0px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { padding: 5px 50px 0px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { padding: 5px 0px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { padding: 50px 0px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { padding: 50px 0px !important }
+#clientes-tbody >tr:nth-child(3) >:is(h1,h2,h3,h4,h5,h6,p,li,dt,dd,blockquote,figcaption,label,span,a,em,strong,small,td,th,caption) >:is(button,input,textarea) { height: 8px !important }
+</style>
