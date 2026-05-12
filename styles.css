@@ -61,7 +61,7 @@ button{font:inherit;cursor:pointer;border:none;background:none;color:inherit}
 .header.scrolled{background:rgba(255,255,255,.92);border-bottom-color:rgba(217,228,236,.6);box-shadow:0 4px 18px rgba(7,27,77,.04)}
 .header-inner{display:flex;align-items:center;justify-content:space-between;height:64px;gap:32px}
 .brand{display:inline-flex;align-items:center;flex-shrink:0}
-.logo-img{height:30px;width:auto;display:block}
+.logo-img{height:46px;width:auto;display:block}
 .nav{display:flex;gap:2px;align-items:center;flex:1;justify-content:center}
 .nav a{padding:8px 14px;border-radius:8px;font-size:14px;font-weight:500;color:var(--c-slate);transition:color .15s,background .15s;letter-spacing:-.005em;position:relative}
 .nav a:hover{color:var(--c-blue)}
