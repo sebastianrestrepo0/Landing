@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Flag Soluciones · La confianza que da la experiencia en SAP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="styles.css"/>
+<style>
+/* ===== PRINT OVERRIDES ===== */
+@page { size: A4 portrait; margin: 0; }
+
+/* Force colour printing */
+* { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+
+/* Kill interactivity */
+*, *::before, *::after {
+  animation: none !important;
+  transition: none !important;
+  transform: none !important;
+}
+
+html, body { background: #fff; }
+
+/* Navigation — hide completely */
+.header, .mobile-menu { display: none !important; }
+
+/* Each section = one page */
+.print-page {
+  width: 210mm;
+  min-height: 297mm;
+  page-break-after: always;
+  break-after: page;
+  break-inside: avoid;
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+}
+.print-page:last-child { page-break-after: avoid; break-after: avoid; }
+
+/* ===== HERO PAGE ===== */
+.pp-hero {
+  background: radial-gradient(circle at 20% 20%, rgba(116,209,234,.32), transparent 36%), linear-gradient(135deg, #071B4D 0%, #1E22AA 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 64px 48px;
+  color: #fff;
+  text-align: center;
+  gap: 32px;
+}
+.pp-hero-logo { height: 56px; filter: brightness(0) invert(1); }
+.pp-hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(116,209,234,.15); border: 1px solid rgba(116,209,234,.35); border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 600; color: #74D1EA; letter-spacing: .04em; }
+.pp-hero-badge span { width: 7px; height: 7px; border-radius: 99px; background: #74D1EA; display: inline-block; }
+.pp-hero h1 { font-family: 'Manrope', sans-serif; font-size: 52px; font-weight: 800; line-height: 1.05; letter-spacing: -.035em; max-width: 720px; }
+.pp-hero h1 em { font-style: normal; background: linear-gradient(135deg, #fff 0%, #74D1EA 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pp-hero-sub { font-size: 17px; color: rgba(255,255,255,.78); max-width: 580px; line-height: 1.6; }
+.pp-hero-stats { display: flex; gap: 48px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.12); }
+.pp-hero-stat { text-align: center; }
+.pp-hero-stat-num { font-family: 'Manrope', sans-serif; font-size: 36px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
+.pp-hero-stat-lbl { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 4px; text-transform: uppercase; letter-spacing: .06em; }
+.pp-hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(116,209,234,.06) 1px, transparent 1px), linear-gradient(90deg, rgba(116,209,234,.06) 1px, transparent 1px); background-size: 48px 48px; pointer-events: none; }
+
+/* ===== SECTION HEADER ===== */
+.pp-section { padding: 56px 64px; display: flex; flex-direction: column; gap: 40px; background: #fff; }
+.pp-section.dark { background: linear-gradient(180deg, #0A1F4F 0%, #071B4D 100%); color: #fff; }
+.pp-section.soft { background: #F6F8FB; }
+.pp-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.pp-section:not(.dark) .pp-eyebrow { color: #1E22AA; }
+.pp-section.dark .pp-eyebrow { color: #74D1EA; }
+.pp-h { font-family: 'Manrope', sans-serif; font-size: 36px; font-weight: 700; letter-spacing: -.025em; line-height: 1.1; }
+.pp-section:not(.dark) .pp-h { color: #071B4D; }
+.pp-section.dark .pp-h { color: #fff; }
+.pp-h em { font-style: normal; background: linear-gradient(135deg, #1E22AA 0%, #74D1EA 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pp-section.dark .pp-h em { background: linear-gradient(135deg, #fff 0%, #74D1EA 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pp-lead { font-size: 15px; line-height: 1.6; color: #475467; max-width: 640px; }
+.pp-section.dark .pp-lead { color: rgba(255,255,255,.72); }
+
+/* ===== SERVICES PAGE ===== */
+.pp-services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.pp-svc-card { background: #F6F8FB; border: 1px solid #D9E4EC; border-radius: 18px; padding: 28px; }
+.pp-svc-ico { width: 44px; height: 44px; border-radius: 12px; background: #EAF8FC; display: flex; align-items: center; justify-content: center; color: #1E22AA; margin-bottom: 14px; }
+.pp-svc-title { font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 700; color: #071B4D; margin-bottom: 8px; }
+.pp-svc-desc { font-size: 13px; color: #475467; line-height: 1.55; }
+
+/* ===== WHY PAGE ===== */
+.pp-why-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.pp-why-card { background: #fff; border: 1px solid #D9E4EC; border-radius: 16px; padding: 22px; }
+.pp-why-card .ico { width: 40px; height: 40px; border-radius: 12px; background: #EAF8FC; display: flex; align-items: center; justify-content: center; color: #1E22AA; margin-bottom: 12px; }
+.pp-why-card h3 { font-family: 'Manrope', sans-serif; font-size: 15px; font-weight: 700; color: #071B4D; margin-bottom: 6px; }
+.pp-why-card p { font-size: 12px; color: #475467; line-height: 1.5; }
+
+/* ===== CLIENTS PAGE ===== */
+.pp-clients-stats { display: flex; gap: 0; background: linear-gradient(135deg, rgba(116,209,234,.12), rgba(30,34,170,.10)); border: 1px solid rgba(116,209,234,.28); border-radius: 18px; padding: 24px 32px; }
+.pp-cstat { flex: 1; text-align: center; }
+.pp-cstat-num { font-family: 'Manrope', sans-serif; font-size: 38px; font-weight: 800; letter-spacing: -.03em; color: #fff; }
+.pp-cstat-lbl { font-size: 11px; color: rgba(255,255,255,.6); margin-top: 4px; text-transform: uppercase; letter-spacing: .05em; }
+.pp-cstat-div { width: 1px; background: rgba(255,255,255,.15); }
+.pp-clients-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.pp-client-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 16px; padding: 18px; }
+.pp-client-logo-box { height: 60px; background: rgba(255,255,255,.94); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Manrope', sans-serif; font-weight: 800; font-size: 18px; color: #071B4D; margin-bottom: 12px; letter-spacing: -.02em; }
+.pp-client-name { font-family: 'Manrope', sans-serif; font-size: 14px; font-weight: 700; color: #fff; }
+.pp-client-sector { font-size: 11px; color: #74D1EA; margin-top: 4px; display: flex; align-items: center; gap: 6px; }
+.pp-client-sector::before { content: ''; width: 5px; height: 5px; background: #74D1EA; border-radius: 99px; display: inline-block; }
+
+/* ===== TESTIMONIALS PAGE ===== */
+.pp-tst-grid { display: grid; grid-template-columns: repeat(1, 1fr); gap: 18px; }
+.pp-tst-card { background: #F6F8FB; border: 1px solid #D9E4EC; border-radius: 18px; padding: 28px; }
+.pp-tst-quote { font-size: 48px; line-height: 1; color: #74D1EA; font-family: Georgia, serif; margin-bottom: 8px; }
+.pp-tst-text { font-size: 14px; color: #475467; line-height: 1.6; margin-bottom: 18px; font-style: italic; }
+.pp-tst-author { display: flex; align-items: center; gap: 12px; }
+.pp-tst-avatar { width: 40px; height: 40px; border-radius: 99px; background: linear-gradient(135deg, #1E22AA, #74D1EA); display: flex; align-items: center; justify-content: center; font-weight: 700; color: #fff; font-size: 13px; flex: none; }
+.pp-tst-name { font-weight: 700; font-size: 14px; color: #071B4D; }
+.pp-tst-role { font-size: 12px; color: #475467; }
+
+/* ===== CONTACT/CTA PAGE ===== */
+.pp-cta { background: radial-gradient(circle at 20% 20%, rgba(116,209,234,.32), transparent 36%), linear-gradient(135deg, #071B4D 0%, #1E22AA 100%); min-height: 297mm; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 64px; text-align: center; color: #fff; gap: 28px; }
+.pp-cta-logo { height: 44px; filter: brightness(0) invert(1); margin-bottom: 12px; }
+.pp-cta h2 { font-family: 'Manrope', sans-serif; font-size: 44px; font-weight: 800; line-height: 1.08; letter-spacing: -.03em; max-width: 700px; }
+.pp-cta h2 em { font-style: normal; background: linear-gradient(135deg, #fff, #74D1EA); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.pp-cta p { font-size: 16px; color: rgba(255,255,255,.78); max-width: 560px; }
+.pp-cta-contacts { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; padding-top: 32px; border-top: 1px solid rgba(255,255,255,.12); }
+.pp-cta-contact { display: flex; flex-direction: column; gap: 4px; align-items: center; }
+.pp-cta-contact-label { font-size: 11px; text-transform: uppercase; letter-spacing: .12em; color: #74D1EA; font-weight: 600; }
+.pp-cta-contact-val { font-size: 15px; font-weight: 600; color: #fff; }
+.pp-footer-nit { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 16px; }
+
+/* Screen: hide print pages */
+@media screen {
+  body { background: #f0f2f5; }
+  .print-page {
+    margin: 24px auto;
+    box-shadow: 0 8px 40px rgba(0,0,0,.18);
+    border-radius: 4px;
+  }
+  .pp-hero { border-radius: 4px 4px 0 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: HERO -->
+<div class="print-page">
+  <div class="pp-hero">
+    <div class="pp-hero-grid"></div>
+    <img src="assets/flag-logo.png" alt="Flag Soluciones" class="pp-hero-logo"/>
+    <div class="pp-hero-badge"><span></span> SAP Partner · Desde 1996</div>
+    <h1>La confianza que da la <em>experiencia en SAP</em></h1>
+    <p class="pp-hero-sub">Consultoría, analítica, seguridad y aceleradores digitales sobre plataforma SAP para organizaciones líderes de Colombia y Centroamérica.</p>
+    <div class="pp-hero-stats">
+      <div class="pp-hero-stat">
+        <div class="pp-hero-stat-num">30+</div>
+        <div class="pp-hero-stat-lbl">Años de experiencia</div>
+      </div>
+      <div class="pp-hero-stat">
+        <div class="pp-hero-stat-num">90+</div>
+        <div class="pp-hero-stat-lbl">Especialistas SAP</div>
+      </div>
+      <div class="pp-hero-stat">
+        <div class="pp-hero-stat-num">15+</div>
+        <div class="pp-hero-stat-lbl">Clientes corporativos</div>
+      </div>
+      <div class="pp-hero-stat">
+        <div class="pp-hero-stat-num">98%</div>
+        <div class="pp-hero-stat-lbl">Retención de clientes</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 2: SERVICIOS -->
+<div class="print-page">
+  <div class="pp-section soft">
+    <div>
+      <div class="pp-eyebrow">Servicios</div>
+      <h2 class="pp-h">Soluciones SAP para cada <em>etapa de su negocio</em></h2>
+      <p class="pp-lead" style="margin-top:12px">Ofrecemos un portafolio integral de servicios especializados sobre plataforma SAP, diseñados para generar valor real en cada proceso de su organización.</p>
+    </div>
+    <div class="pp-services-grid">
+      <div class="pp-svc-card">
+        <div class="pp-svc-ico">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M12 12v4"/><path d="M8 12h8"/></svg>
+        </div>
+        <div class="pp-svc-title">Consultoría SAP</div>
+        <div class="pp-svc-desc">Acompañamiento experto en implementación, mejora continua y operación de módulos SAP para maximizar el retorno de su inversión tecnológica.</div>
+      </div>
+      <div class="pp-svc-card">
+        <div class="pp-svc-ico">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg>
+        </div>
+        <div class="pp-svc-title">Analítica SAP</div>
+        <div class="pp-svc-desc">Transformamos datos en decisiones: dashboards ejecutivos, modelos predictivos e inteligencia de negocio sobre SAP BW, Analytics Cloud y Data Sphere.</div>
+      </div>
+      <div class="pp-svc-card">
+        <div class="pp-svc-ico">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg>
+        </div>
+        <div class="pp-svc-title">Seguridad SAP</div>
+        <div class="pp-svc-desc">Estrategia integral de seguridad y control de accesos: roles, perfiles, auditoría, segregación de funciones y cumplimiento normativo end-to-end.</div>
+      </div>
+      <div class="pp-svc-card">
+        <div class="pp-svc-ico">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div class="pp-svc-title">Aceleradores Digitales</div>
+        <div class="pp-svc-desc">Soluciones preconstruidas sobre plataforma SAP que reducen tiempos de implementación y entregan valor inmediato: automatización, formularios y flujos inteligentes.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: ¿POR QUÉ FLAG? -->
+<div class="print-page">
+  <div class="pp-section">
+    <div>
+      <div class="pp-eyebrow">Diferenciales</div>
+      <h2 class="pp-h">¿Por qué elegir <em>Flag Soluciones</em>?</h2>
+      <p class="pp-lead" style="margin-top:12px">Tres décadas construyendo relaciones de largo plazo con las organizaciones más exigentes de la región, basadas en cumplimiento, metodología y talento humano excepcional.</p>
+    </div>
+    <div class="pp-why-grid">
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <h3>Nuestra gente</h3>
+        <p>Equipo humano cuidadosamente seleccionado y rigurosamente entrenado en funcionalidades SAP, alineado con nuestra misión dentro de una cultura colaborativa.</p>
+      </div>
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81"/><path d="M2 2l20 20"/></svg></div>
+        <h3>Relaciones a largo plazo</h3>
+        <p>Cada cliente es una entidad única sobre la cual trabajamos en distinguir necesidades e insatisfacciones, desarrollando servicios y programas continuos de evolución.</p>
+      </div>
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m9 12 2 2 4-4"/></svg></div>
+        <h3>Cumplimiento de la promesa</h3>
+        <p>Construimos relaciones de confianza basadas en la credibilidad y la confiabilidad sostenidas en el cumplimiento indeclinable de nuestras promesas de valor.</p>
+      </div>
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div>
+        <h3>Método de trabajo</h3>
+        <p>Nuestro desempeño se basa en metodologías de clase mundial y mejores prácticas empresariales que garantizan calidad y predictibilidad en cada entrega.</p>
+      </div>
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <h3>Soluciones ágiles y efectivas</h3>
+        <p>Brindamos soluciones de negocio sobre plataforma SAP, oportunas, adecuadas y acertadas que generan valor real en tiempos óptimos.</p>
+      </div>
+      <div class="pp-why-card">
+        <div class="ico"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/></svg></div>
+        <h3>Respaldo</h3>
+        <p>Más de 30 años de experiencia brindando servicios de implementación y operación de soluciones SAP en clientes de primer nivel regional.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: CLIENTES -->
+<div class="print-page">
+  <div class="pp-section dark">
+    <div>
+      <div class="pp-eyebrow">Aliados estratégicos</div>
+      <h2 class="pp-h">Las organizaciones más sólidas de la región <em>confían en Flag</em></h2>
+      <p class="pp-lead" style="margin-top:12px">Tres décadas acompañando a líderes de industria en la evolución de sus procesos SAP.</p>
+    </div>
+    <div class="pp-clients-stats">
+      <div class="pp-cstat"><div class="pp-cstat-num">15+</div><div class="pp-cstat-lbl">Clientes corporativos</div></div>
+      <div class="pp-cstat-div"></div>
+      <div class="pp-cstat"><div class="pp-cstat-num">30</div><div class="pp-cstat-lbl">Años de relaciones</div></div>
+      <div class="pp-cstat-div"></div>
+      <div class="pp-cstat"><div class="pp-cstat-num">98%</div><div class="pp-cstat-lbl">Retención</div></div>
+      <div class="pp-cstat-div"></div>
+      <div class="pp-cstat"><div class="pp-cstat-num">7</div><div class="pp-cstat-lbl">Industrias</div></div>
+    </div>
+    <div class="pp-clients-grid">
+      <div class="pp-client-card"><div class="pp-client-logo-box">GN</div><div class="pp-client-name">Grupo Nutresa</div><div class="pp-client-sector">Alimentos · Desde 2008</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">SU</div><div class="pp-client-name">SURA</div><div class="pp-client-sector">Servicios · Desde 2007</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">IS</div><div class="pp-client-name">ISAGEN</div><div class="pp-client-sector">Energía · Desde 2010</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">TU</div><div class="pp-client-name">Tigo UNE</div><div class="pp-client-sector">Telecom · Desde 2012</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">GF</div><div class="pp-client-name">Grupo Familia</div><div class="pp-client-sector">Manufactura · Desde 2005</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">MM</div><div class="pp-client-name">Metro de Medellín</div><div class="pp-client-sector">Transporte · Desde 2009</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">CO</div><div class="pp-client-name">Corona</div><div class="pp-client-sector">Manufactura · Desde 2004</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">CE</div><div class="pp-client-name">Celsia</div><div class="pp-client-sector">Energía · Desde 2013</div></div>
+      <div class="pp-client-card"><div class="pp-client-logo-box">CM</div><div class="pp-client-name">Cerro Matoso</div><div class="pp-client-sector">Manufactura · Desde 2010</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: TESTIMONIOS -->
+<div class="print-page">
+  <div class="pp-section soft">
+    <div>
+      <div class="pp-eyebrow">Testimonios</div>
+      <h2 class="pp-h">Relaciones construidas <em>desde la confianza</em></h2>
+    </div>
+    <div class="pp-tst-grid">
+      <div class="pp-tst-card">
+        <div class="pp-tst-quote">"</div>
+        <div class="pp-tst-text">Hemos trabajado con Flag Soluciones durante muchos años y nos han brindado soluciones oportunas con profesionales de gran calidad humana y técnica. Lo que más valoro es el cumplimiento de sus compromisos y la orientación permanente a resolver nuestras necesidades.</div>
+        <div class="pp-tst-author">
+          <div class="pp-tst-avatar">MB</div>
+          <div>
+            <div class="pp-tst-name">Martha Ballesteros</div>
+            <div class="pp-tst-role">Gerente de TI · Grupo Nutresa</div>
+          </div>
+        </div>
+      </div>
+      <div class="pp-tst-card">
+        <div class="pp-tst-quote">"</div>
+        <div class="pp-tst-text">Lo que más valoro de Flag Soluciones es la proactividad y las respuestas acertadas que he recibido del equipo de desarrollo para BW y BI, y el cumplimiento de los compromisos establecidos en los términos acordados.</div>
+        <div class="pp-tst-author">
+          <div class="pp-tst-avatar">CG</div>
+          <div>
+            <div class="pp-tst-name">Cristian David Giraldo Castro</div>
+            <div class="pp-tst-role">Equipo Gestión de la Información · ISAGEN</div>
+          </div>
+        </div>
+      </div>
+      <div class="pp-tst-card">
+        <div class="pp-tst-quote">"</div>
+        <div class="pp-tst-text">Flag Soluciones S.A.S. es una compañía que se preocupa por conocer a fondo los procesos y necesidades del cliente para brindar un servicio óptimo en calidad con soluciones personalizadas, adecuadas y oportunas.</div>
+        <div class="pp-tst-author">
+          <div class="pp-tst-avatar">JM</div>
+          <div>
+            <div class="pp-tst-name">Juan David Martínez Pavony</div>
+            <div class="pp-tst-role">Director Aplicaciones de Tecnología · Grupo Familia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 6: CONTACTO -->
+<div class="print-page">
+  <div class="pp-cta">
+    <img src="assets/flag-logo.png" alt="Flag Soluciones" class="pp-cta-logo"/>
+    <h2>Conversemos sobre la <em>evolución</em> de su ecosistema SAP</h2>
+    <p>Identifiquemos oportunidades de mejora, automatización, analítica y seguridad para generar valor real en su organización.</p>
+    <div class="pp-cta-contacts">
+      <div class="pp-cta-contact">
+        <div class="pp-cta-contact-label">Teléfono</div>
+        <div class="pp-cta-contact-val">+57 (604) 444 6609</div>
+      </div>
+      <div class="pp-cta-contact">
+        <div class="pp-cta-contact-label">Móvil</div>
+        <div class="pp-cta-contact-val">+57 314 589 7949</div>
+      </div>
+      <div class="pp-cta-contact">
+        <div class="pp-cta-contact-label">Correo</div>
+        <div class="pp-cta-contact-val">contacto@flagsoluciones.com</div>
+      </div>
+      <div class="pp-cta-contact">
+        <div class="pp-cta-contact-label">Ubicación</div>
+        <div class="pp-cta-contact-val">Medellín · El Poblado</div>
+      </div>
+    </div>
+    <p class="pp-footer-nit">Flag Soluciones S.A.S. · NIT 811.003.463-2 · Cra. 42 N° 3 Sur-81 · Torre 1 · Piso 15 · Medellín, Colombia</p>
+  </div>
+</div>
+
+<script>
+document.fonts.ready.then(function() {
+  setTimeout(function() { window.print(); }, 500);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,994 @@
+/* ==========================================================================
+   FLAG · TABLAS ENTERPRISE — REDISEÑO CSS-ONLY
+   --------------------------------------------------------------------------
+   Estética: SAP Fiori refinado + Excel profesional + tarjeta moderna.
+   Trabaja sobre las clases existentes — no modifica templates ni HTML.
+   Pegar al final de modulo/static/styles.css (sobreescribe el bloque
+   "FLAG UI REFRESH" anterior).
+   ========================================================================== */
+
+:root {
+    /* Paleta corporativa (respeta la existente) */
+    --flag-primary:      #1E22AA;
+    --flag-primary-700:  #141787;
+    --flag-blue-500:     #007bff;
+    --flag-blue-700:     #0153ac;
+
+    /* Neutros operativos */
+    --flag-bg-app:       #f4f6fa;
+    --flag-bg-card:      #ffffff;
+    --flag-bg-zebra:     #f7f9fc;
+    --flag-bg-hover:     #eef3fb;
+    --flag-bg-subtle:    #fafbfd;
+
+    /* Bordes — cuadrícula tipo hoja de cálculo, muy suave */
+    --flag-border:       #e3e8f0;
+    --flag-border-soft:  #eef1f6;
+    --flag-border-strong:#cfd6e2;
+
+    /* Texto */
+    --flag-text:         #1f2937;
+    --flag-text-muted:   #6b7280;
+    --flag-text-faint:   #9aa3b2;
+
+    /* Forma */
+    --flag-radius:       10px;
+    --flag-radius-sm:    6px;
+    --flag-row-h:        34px;
+
+    /* Sombras enterprise: discretas, en azul corporativo */
+    --flag-shadow-xs:    0 1px 0 rgba(20,23,135,0.04);
+    --flag-shadow-sm:    0 1px 2px rgba(20,23,135,0.05), 0 1px 1px rgba(15,23,42,0.03);
+    --flag-shadow-md:    0 1px 2px rgba(20,23,135,0.04), 0 6px 18px -8px rgba(20,23,135,0.10);
+    --flag-shadow-lg:    0 2px 4px rgba(20,23,135,0.05), 0 12px 28px -12px rgba(20,23,135,0.14);
+
+    /* Focus ring */
+    --flag-ring:         0 0 0 3px rgba(30,34,170,0.16);
+    --flag-ring-soft:    0 0 0 2px rgba(30,34,170,0.10);
+}
+
+/* ==========================================================================
+   1 · TARJETA (CARD) — contenedor principal
+   ========================================================================== */
+
+.card {
+    background: var(--flag-bg-card);
+    border: 1px solid var(--flag-border);
+    border-radius: var(--flag-radius);
+    box-shadow: var(--flag-shadow-md);
+    overflow: visible;
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.95rem 1.15rem 0.85rem;
+    background: var(--flag-bg-card);
+    border-bottom: 1px solid var(--flag-border-soft);
+    border-top-left-radius: var(--flag-radius);
+    border-top-right-radius: var(--flag-radius);
+}
+
+.card-title,
+.card-header h3,
+.card-header h4,
+.card-header h5 {
+    margin: 0;
+    color: var(--flag-primary);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    letter-spacing: -0.005em;
+    line-height: 1.2;
+    /* Acento vertical sutil tipo SAP Fiori */
+    padding-left: 0.7rem;
+    border-left: 3px solid var(--flag-primary);
+}
+
+.card-body {
+    padding: 0.85rem 1.15rem 0.6rem;
+    background: var(--flag-bg-card);
+}
+
+.card-footer {
+    background: var(--flag-bg-card);
+    border-top: 1px solid var(--flag-border-soft);
+    padding: 0.6rem 1.15rem 1.05rem;
+    color: var(--flag-text-muted);
+    border-bottom-left-radius: var(--flag-radius);
+    border-bottom-right-radius: var(--flag-radius);
+}
+
+/* ==========================================================================
+   2 · BUTTON-GROUP — barra de acciones CRUD compacta
+   ========================================================================== */
+
+.button-group {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    padding: 4px;
+    background: var(--flag-bg-zebra);
+    border: 1px solid var(--flag-border);
+    border-radius: 8px;
+    box-shadow: var(--flag-shadow-xs);
+}
+
+.button-group .btn,
+.button-group button {
+    border-radius: 6px !important;
+    border-width: 1px !important;
+    padding: 0.38rem 0.55rem !important;
+    margin: 0 !important;
+    font-size: 0.875rem !important;
+    line-height: 1.2 !important;
+    background: transparent !important;
+    color: var(--flag-text-muted) !important;
+    border-color: transparent !important;
+    transform: none !important;
+    box-shadow: none !important;
+    transition: background-color 90ms ease, color 90ms ease, border-color 90ms ease, box-shadow 90ms ease;
+}
+
+/* Iconos dentro del botón */
+.button-group .btn.fas,
+.button-group button.fas,
+.button-group .btn .fas,
+.button-group button .fas {
+    font-size: 0.95rem !important;
+    margin: 0 !important;
+}
+
+.button-group .btn:hover,
+.button-group button:hover {
+    background: #fff !important;
+    color: var(--flag-primary) !important;
+    border-color: var(--flag-border) !important;
+    box-shadow: var(--flag-shadow-xs) !important;
+    transform: none !important;
+}
+
+.button-group .btn-outline-primary:hover {
+    background: rgba(30,34,170,0.06) !important;
+    color: var(--flag-primary) !important;
+    border-color: rgba(30,34,170,0.18) !important;
+}
+
+.button-group .btn-outline-danger:hover {
+    background: rgba(198,40,40,0.06) !important;
+    color: #b42525 !important;
+    border-color: rgba(198,40,40,0.20) !important;
+}
+
+.button-group .btn-outline-success:hover {
+    background: rgba(46,125,50,0.06) !important;
+    color: #1f6024 !important;
+    border-color: rgba(46,125,50,0.20) !important;
+}
+
+.button-group .btn-outline-info:hover {
+    background: rgba(1,83,172,0.06) !important;
+    color: var(--flag-blue-700) !important;
+    border-color: rgba(1,83,172,0.20) !important;
+}
+
+.button-group .btn:focus-visible,
+.button-group button:focus-visible {
+    outline: none !important;
+    box-shadow: var(--flag-ring) !important;
+}
+
+.button-group .btn:active,
+.button-group button:active {
+    transform: translateY(0.5px) !important;
+    background: rgba(30,34,170,0.10) !important;
+}
+
+/* Separador visual entre clusters de acciones */
+.button-group form {
+    display: inline-flex;
+    align-items: center;
+    margin: 0;
+    padding-left: 4px;
+    margin-left: 4px;
+    border-left: 1px solid var(--flag-border);
+}
+
+/* ==========================================================================
+   3 · TABLE WRAP — contenedor con scroll + sombras laterales (CSS puro)
+   ========================================================================== */
+
+.table-app-wrap,
+.table-responsive,
+.table-responsive-informes {
+    position: relative;
+    width: 100%;
+    overflow: auto;
+    max-height: 78vh;
+    background: var(--flag-bg-card);
+    border: 1px solid var(--flag-border);
+    border-radius: var(--flag-radius);
+    box-shadow: var(--flag-shadow-sm);
+
+    /* Indicador de scroll horizontal: técnica clásica de máscaras laterales.
+       Cuatro capas: dos blancas (cubren cuando NO hay scroll) y dos sombras
+       (visibles cuando hay scroll porque attachment: scroll las "ancla"). */
+    background:
+        linear-gradient(to right, var(--flag-bg-card) 30%, rgba(255,255,255,0)) left center / 2.5rem 100% no-repeat local,
+        linear-gradient(to left,  var(--flag-bg-card) 30%, rgba(255,255,255,0)) right center / 2.5rem 100% no-repeat local,
+        radial-gradient(farthest-side at 0 50%, rgba(20,23,135,0.14), rgba(20,23,135,0)) left center / 1rem 100% no-repeat scroll,
+        radial-gradient(farthest-side at 100% 50%, rgba(20,23,135,0.14), rgba(20,23,135,0)) right center / 1rem 100% no-repeat scroll,
+        var(--flag-bg-card);
+}
+
+/* Variante para informes — un poco más alto en escritorio ancho */
+.table-responsive-informes {
+    max-height: 72vh;
+}
+
+/* ==========================================================================
+   4 · TABLE-APP — tabla maestra
+   ========================================================================== */
+
+.table-app-wrap .table-app {
+    width: 100%;
+    min-width: max-content;
+}
+
+.table-app,
+.table.table-app,
+.informes-table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--flag-bg-card);
+    color: var(--flag-text);
+    font-size: 0.8125rem;       /* 13px — densidad SAP/Excel */
+    line-height: 1.35;
+    font-feature-settings: "ss01", "cv01", "cv11";
+    font-variant-numeric: tabular-nums;
+}
+
+/* ----- THEAD ----- */
+.table-app thead th,
+.informes-table thead th {
+    position: sticky;
+    top: 0;
+    z-index: 4;
+
+    /* Header con contraste sutil — gris azulado muy claro */
+    background: linear-gradient(180deg, #f4f6fa 0%, #eef1f6 100%);
+    color: var(--flag-primary);
+    font-weight: 600;
+    font-size: 0.7rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    text-align: left;
+    white-space: nowrap;
+    vertical-align: middle;
+    padding: 0.55rem 0.7rem;
+    height: 36px;
+
+    border: 0;
+    border-right: 1px solid rgba(30,34,170,0.08);
+    /* Línea inferior gruesa = ancla visual de header (estilo Fiori) */
+    box-shadow:
+        inset 0 -2px 0 var(--flag-primary),
+        0 1px 0 rgba(20,23,135,0.04);
+}
+
+/* Sticky 1ª columna en thead conserva el mismo fondo */
+.table-app thead th:first-child {
+    background: linear-gradient(180deg, #f4f6fa 0%, #eef1f6 100%);
+}
+
+.table-app thead th:last-child,
+.informes-table thead th:last-child { border-right: 0; }
+
+/* Numéricos: alineados a la derecha en thead y tbody */
+.table-app thead th.text-end,
+.table-app tbody td.text-end,
+.informes-table thead th.text-end,
+.informes-table tbody td.text-end { text-align: right; }
+
+/* ----- TBODY: filas, zebra, hover ----- */
+.table-app tbody tr,
+.informes-table tbody tr {
+    transition: background-color 70ms ease;
+}
+
+.table-app tbody tr:nth-of-type(even),
+.informes-table tbody tr:nth-of-type(even) {
+    background: var(--flag-bg-zebra);
+}
+
+.table-app tbody tr:hover,
+.informes-table tbody tr:hover {
+    background: var(--flag-bg-hover) !important;
+}
+
+/* Selected row (cuando un checkbox interno está :checked) */
+.table-app tbody tr:has(input.row-select:checked),
+.informes-table tbody tr:has(input.row-select:checked) {
+    background: rgba(30,34,170,0.045) !important;
+    box-shadow: inset 3px 0 0 var(--flag-primary);
+}
+
+/* ----- TBODY: celdas — cuadrícula sutil ----- */
+.table-app tbody td,
+.informes-table tbody td {
+    padding: 0.32rem 0.6rem;
+    height: var(--flag-row-h);
+    vertical-align: middle;
+    color: var(--flag-text);
+    background: transparent;
+
+    border: 0;
+    border-right: 1px solid var(--flag-border-soft);
+    border-bottom: 1px solid var(--flag-border-soft);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table-app tbody td:last-child,
+.informes-table tbody td:last-child { border-right: 0; }
+
+.table-app tbody tr:last-child td,
+.informes-table tbody tr:last-child td { border-bottom: 0; }
+
+/* Primera columna (checkbox o ID): COMPACTA — solo ancho del checkbox */
+.table-app th:first-child,
+.table-app td:first-child {
+    width: 40px !important;
+    min-width: 40px !important;
+    max-width: 40px !important;
+    padding: 0.32rem 0 !important;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* ----- TFOOT — totales sticky ----- */
+.table-app tfoot th,
+.table-app tfoot td,
+.informes-table tfoot th,
+.informes-table tfoot td {
+    position: sticky;
+    bottom: 0;
+    z-index: 3;
+    padding: 0.55rem 0.75rem;
+    background: #fff;
+    color: var(--flag-primary-700);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    border: 0;
+    border-right: 1px solid var(--flag-border-soft);
+    border-top: 2px solid var(--flag-primary);
+    box-shadow: 0 -1px 0 var(--flag-border-soft);
+    white-space: nowrap;
+}
+
+.table-app tfoot th:last-child,
+.table-app tfoot td:last-child,
+.informes-table tfoot th:last-child,
+.informes-table tfoot td:last-child { border-right: 0; }
+
+/* ==========================================================================
+   5 · COLUMNAS STICKY — primera (siempre) + segunda (opt-in)
+   ========================================================================== */
+
+.table-app th:first-child,
+.table-app td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    background: #fff;
+    box-shadow: inset -1px 0 0 var(--flag-border);
+}
+
+.table-app thead th:first-child {
+    z-index: 7;
+    background: linear-gradient(180deg, #f4f6fa 0%, #eef1f6 100%);
+}
+
+.table-app tfoot th:first-child,
+.table-app tfoot td:first-child {
+    z-index: 6;
+    background: #fff;
+}
+
+.table-app tbody tr:nth-of-type(odd) td:first-child  { background: #fff; }
+.table-app tbody tr:nth-of-type(even) td:first-child { background: var(--flag-bg-zebra); }
+.table-app tbody tr:hover td:first-child             { background: var(--flag-bg-hover) !important; }
+.table-app tbody tr:has(input.row-select:checked) td:first-child {
+    background: rgba(30,34,170,0.045) !important;
+}
+
+/* Segunda columna sticky — opt-in con .table-app-pin-2 o detección por <form> */
+.table-app-pin-2 th:nth-child(2),
+.table-app-pin-2 td:nth-child(2) {
+    position: sticky;
+    left: 40px;
+    z-index: 2;
+    box-shadow: inset -1px 0 0 var(--flag-border);
+}
+
+.table-app-pin-2 thead th:nth-child(2)  { z-index: 6; background: #fff; }
+.table-app-pin-2 tfoot th:nth-child(2),
+.table-app-pin-2 tfoot td:nth-child(2)  { z-index: 5; background: #fff; }
+
+.table-app-pin-2 tbody tr:nth-of-type(odd)  td:nth-child(2) { background: #fff; }
+.table-app-pin-2 tbody tr:nth-of-type(even) td:nth-child(2) { background: var(--flag-bg-zebra); }
+.table-app-pin-2 tbody tr:hover td:nth-child(2)             { background: var(--flag-bg-hover) !important; }
+
+/* ==========================================================================
+   6 · SORTABLE HEADERS
+   ========================================================================== */
+
+.sortable {
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    transition: background-color 90ms ease, color 90ms ease;
+}
+
+.sortable:hover {
+    background: var(--flag-bg-hover) !important;
+    color: var(--flag-primary-700) !important;
+}
+
+.sortable:active { background: rgba(30,34,170,0.08) !important; }
+
+.sort-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    margin-left: 5px;
+    opacity: 0.4;
+    color: var(--flag-text-muted);
+    transition: opacity 120ms ease, color 120ms ease;
+    vertical-align: middle;
+    position: relative;
+}
+
+/* Por defecto OCULTAR los 3 íconos hijos — solo se muestra el activo */
+.sort-icon i,
+.sortable .sort-icon-default,
+.sortable .sort-icon-asc,
+.sortable .sort-icon-desc {
+    display: none !important;
+    font-size: 0.72rem;
+    line-height: 1;
+}
+
+/* Sin orden (default o sin atributo) → fa-sort */
+.sortable[data-direction="default"] .sort-icon-default,
+.sortable:not([data-direction]) .sort-icon-default {
+    display: inline-block !important;
+}
+
+/* Ascendente → fa-sort-up */
+.sortable[data-direction="asc"] .sort-icon-asc {
+    display: inline-block !important;
+    animation: flagSortPop 180ms ease-out;
+}
+
+/* Descendente → fa-sort-down */
+.sortable[data-direction="desc"] .sort-icon-desc {
+    display: inline-block !important;
+    animation: flagSortPop 180ms ease-out;
+}
+
+@keyframes flagSortPop {
+    from { transform: translateY(-2px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.sortable:hover .sort-icon { opacity: 0.85; color: var(--flag-primary); }
+
+.sortable[data-direction="asc"] .sort-icon,
+.sortable[data-direction="desc"] .sort-icon {
+    opacity: 1;
+    color: var(--flag-primary);
+}
+
+/* Header activo: fondo ligeramente azulado + línea inferior más gruesa */
+.sortable[data-direction="asc"],
+.sortable[data-direction="desc"] {
+    background: linear-gradient(180deg, #e8ecf7 0%, #dde4f1 100%) !important;
+    color: var(--flag-primary-700) !important;
+    box-shadow:
+        inset 0 -3px 0 var(--flag-primary),
+        0 1px 0 rgba(20,23,135,0.04) !important;
+}
+
+/* ==========================================================================
+   6.5 · CELDAS DE TEXTO PLANO — preferido para tablas de visualización
+   ========================================================================== */
+
+/* Utilidades para celdas con texto directo (sin <input> wrapper) */
+.table-app tbody td.mono,
+.informes-table tbody td.mono {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1, "lnum" 1;
+}
+
+.table-app tbody td.muted,
+.informes-table tbody td.muted {
+    color: var(--flag-text-muted);
+}
+
+.table-app tbody td strong,
+.informes-table tbody td strong {
+    font-weight: 600;
+    color: var(--flag-text-strong, #11151c);
+}
+
+/* Force fixed layout cuando hay colgroup — los <col> dictan ancho exacto */
+.table-app[class*="table"]:has(colgroup),
+.informes-table:has(colgroup) {
+    table-layout: fixed;
+    width: 100%;
+}
+
+/* Truncado SOLO para celdas marcadas con .truncate o columnas largas conocidas */
+.table-app tbody td.truncate,
+.informes-table tbody td.truncate,
+.table-app tbody td.muted,
+.informes-table tbody td.muted {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 220px;
+}
+
+/* Permitir wrap explícitamente (ej. columna principal Cliente, Nombre) */
+.table-app tbody td.wrap,
+.informes-table tbody td.wrap {
+    white-space: normal;
+    max-width: none;
+    overflow: visible;
+    text-overflow: clip;
+}
+
+/* La columna principal (primera con texto, ej. Cliente, Nombre) NUNCA se trunca */
+.informes-table tbody td:first-child,
+.informes-table tbody td:nth-child(2):not(.text-end):not(.mono) {
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: clip;
+    min-width: 160px;
+}
+
+/* ==========================================================================
+   7 · INPUTS / SELECTS DENTRO DE TABLAS (modo edición)
+   ========================================================================== */
+
+/* Override del width:150px inline que viene de los templates Django.
+   Hacemos que la celda se ajuste al contenido y los inputs respeten min sensato. */
+.table-app tbody td:has(> input),
+.table-app tbody td:has(> select) {
+    padding: 0.16rem 0.5rem;
+    white-space: nowrap;
+    width: 1%;
+}
+
+/* Mata los width:150px inline de los <input> de los templates */
+.table-app tbody td > input[style*="width"],
+.table-app tbody td > select[style*="width"],
+.table-primary tbody td > input[style*="width"],
+.table-primary tbody td > select[style*="width"],
+.informes-table tbody td > input[style*="width"],
+.informes-table tbody td > select[style*="width"] {
+    width: auto !important;
+    min-width: 0 !important;
+    max-width: none !important;
+}
+
+/* min-widths sensatos por tipo de campo, para que no quede ilegible */
+.table-app tbody td input[type="text"],
+.table-primary tbody td input[type="text"] { min-width: 9ch; }
+
+.table-app tbody td input[type="number"],
+.table-primary tbody td input[type="number"] { min-width: 5ch; max-width: 9ch; }
+
+.table-app tbody td input[type="date"],
+.table-primary tbody td input[type="date"] { min-width: 110px; max-width: 130px; }
+
+.table-app tbody td input[type="email"],
+.table-app tbody td input[name="CorreoElectronico"i],
+.table-app tbody td input[name="BuzonFacturacion"i] { min-width: 14ch; }
+
+.table-app tbody td select,
+.table-primary tbody td select { min-width: 7ch; max-width: 16ch; }
+
+.table-app tbody td input,
+.table-app tbody td select,
+.table-primary tbody td input,
+.table-primary tbody td select,
+.informes-table tbody td input,
+.informes-table tbody td select {
+    display: block;
+    width: 100%;
+    min-height: 28px;
+    padding: 0.25rem 0.5rem;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+    color: var(--flag-text);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    transition: border-color 110ms ease, box-shadow 110ms ease, background-color 110ms ease;
+    appearance: none;
+}
+
+/* Plaintext = modo lectura (no parece input) */
+.table-app tbody td input.form-control-plaintext,
+.table-primary tbody td input.form-control-plaintext,
+.informes-table tbody td input.form-control-plaintext {
+    border-color: transparent;
+    background: transparent;
+    cursor: default;
+}
+
+.table-app tbody td input.form-control-plaintext:hover,
+.table-primary tbody td input.form-control-plaintext:hover {
+    border-color: var(--flag-border);
+    background: #fff;
+}
+
+/* Numéricos & fechas → alineación derecha + tabular */
+.table-app tbody td input[type="number"],
+.table-app tbody td input[type="date"],
+.table-app tbody td input.text-end,
+.table-app tbody td .text-end {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.01em;
+}
+
+/* Edit mode = input editable */
+.table-app tbody td input.form-control:not(.form-control-plaintext),
+.table-app tbody td select.form-control,
+.table-primary tbody td input.form-control:not(.form-control-plaintext),
+.table-primary tbody td select.form-control {
+    background: #fff;
+    border-color: var(--flag-border-strong);
+}
+
+/* Focus suave en azul corporativo translúcido */
+.table-app tbody td input:focus,
+.table-app tbody td select:focus,
+.table-primary tbody td input:focus,
+.table-primary tbody td select:focus,
+.informes-table tbody td input:focus,
+.informes-table tbody td select:focus {
+    outline: none;
+    border-color: var(--flag-primary);
+    background: #fff;
+    box-shadow: var(--flag-ring);
+}
+
+.table-app tbody td input:disabled,
+.table-app tbody td select:disabled {
+    color: var(--flag-text);
+    opacity: 1;
+    cursor: default;
+    background: transparent;
+    border-color: transparent;
+}
+
+/* Caret select custom (mantiene la flecha del CSS antiguo pero más sutil) */
+.table-app tbody td select,
+.table-primary tbody td select,
+.informes-table tbody td select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' fill='none' stroke='%236b7280' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 0.65rem auto;
+    padding-right: 1.5rem;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   8 · CHECKBOXES en tablas — más pequeños y precisos
+   ========================================================================== */
+
+.table-app input[type="checkbox"],
+.table-primary input[type="checkbox"],
+.informes-table input[type="checkbox"],
+.table-app input[type="checkbox"].row-select,
+.informes-table input[type="checkbox"].row-select {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    width: 15px !important;
+    height: 13px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background-color: #fff;
+    border: 1.5px solid #b8c0cf;
+    border-radius: 3.5px;
+    cursor: pointer;
+    transition: background-color 90ms ease, border-color 90ms ease, box-shadow 90ms ease, transform 90ms ease;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 11px 10px;
+    background-image: none;
+    display: block;
+    vertical-align: middle;
+    flex-shrink: 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 1px 0 rgba(15,20,40,0.04);
+    position: relative;
+    /* Mata cualquier outline / accent del navegador */
+    outline: none !important;
+    accent-color: var(--flag-primary);
+}
+
+/* Hover sutil con lift */
+.table-app input[type="checkbox"]:hover:not(:disabled),
+.informes-table input[type="checkbox"]:hover:not(:disabled) {
+    border-color: var(--flag-primary);
+    background-color: rgba(30,34,170,0.04);
+    box-shadow: 0 0 0 3px rgba(30,34,170,0.06);
+}
+
+.table-app input[type="checkbox"]:hover:not(:disabled) {
+    transform: scale(1.05);
+}
+
+.table-app input[type="checkbox"]:focus-visible,
+.informes-table input[type="checkbox"]:focus-visible {
+    outline: none;
+    box-shadow: var(--flag-ring);
+}
+
+.table-app input[type="checkbox"]:checked,
+.table-primary input[type="checkbox"]:checked,
+.informes-table input[type="checkbox"]:checked,
+.table-app input[type="checkbox"].row-select:checked,
+.informes-table input[type="checkbox"].row-select:checked {
+    background-color: var(--flag-primary) !important;
+    border-color: var(--flag-primary) !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3.5 8.4l3.1 3.1L12.7 4.9' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.18), 0 1px 2px rgba(30,34,170,0.25);
+}
+
+.table-app input[type="checkbox"]:checked:hover,
+.informes-table input[type="checkbox"]:checked:hover {
+    background-color: #181ba0;
+    border-color: #181ba0;
+}
+
+/* Indeterminate state (header check parcial) */
+.table-app input[type="checkbox"]:indeterminate,
+.informes-table input[type="checkbox"]:indeterminate {
+    background-color: var(--flag-primary);
+    border-color: var(--flag-primary);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M4 8h8' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E");
+}
+
+.table-app input[type="checkbox"]:disabled,
+.informes-table input[type="checkbox"]:disabled {
+    background-color: #eef1f6;
+    border-color: var(--flag-border);
+    cursor: not-allowed;
+}
+
+/* ==========================================================================
+   9 · BOOLEAN-DISPLAY — "SI / NO" tipo chip discreto
+   ========================================================================== */
+
+.boolean-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 1px 8px 1px 6px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.6;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: var(--flag-bg-zebra);
+    color: var(--flag-text-muted);
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.boolean-display::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    flex: none;
+}
+
+.boolean-display.true,
+.boolean-display[data-value="true"],
+.boolean-display.is-true,
+.boolean-display.activo {
+    background: rgba(46,125,50,0.08);
+    color: #1f6024;
+    border-color: rgba(46,125,50,0.18);
+}
+
+.boolean-display.false,
+.boolean-display[data-value="false"],
+.boolean-display.is-false,
+.boolean-display.inactivo {
+    background: rgba(107,114,128,0.10);
+    color: var(--flag-text-muted);
+    border-color: rgba(107,114,128,0.18);
+}
+
+/* ==========================================================================
+   10 · INFORMES TABLE — alta densidad
+   ========================================================================== */
+
+.informes-table {
+    width: max-content;
+    min-width: 100%;
+    background: var(--flag-bg-card);
+}
+
+.informes-table thead th { height: 36px; padding: 0.5rem 0.7rem; }
+.informes-table tbody td { padding: 0.28rem 0.55rem; height: 32px; }
+
+/* ==========================================================================
+   11 · OVERRIDES legacy — apaga reglas viejas que entran en conflicto
+   ========================================================================== */
+
+.table-app thead th[style],
+.table thead th { background-color: transparent; }
+
+.table th {
+    background-color: transparent;
+    color: var(--flag-primary);
+}
+
+.table tbody tr:hover { background-color: var(--flag-bg-hover); }
+
+/* ==========================================================================
+   12 · SCROLLBARS — estilo enterprise sutil
+   ========================================================================== */
+
+.table-app-wrap::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar,
+.table-responsive-informes::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+.table-app-wrap::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track,
+.table-responsive-informes::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 0;
+}
+
+.table-app-wrap::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb,
+.table-responsive-informes::-webkit-scrollbar-thumb {
+    background: rgba(30,34,170,0.18);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background-color 120ms ease;
+}
+
+.table-app-wrap::-webkit-scrollbar-thumb:hover,
+.table-responsive::-webkit-scrollbar-thumb:hover,
+.table-responsive-informes::-webkit-scrollbar-thumb:hover {
+    background: rgba(30,34,170,0.40);
+    background-clip: padding-box;
+}
+
+.table-app-wrap::-webkit-scrollbar-corner,
+.table-responsive::-webkit-scrollbar-corner,
+.table-responsive-informes::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Firefox */
+.table-app-wrap,
+.table-responsive,
+.table-responsive-informes {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(30,34,170,0.25) transparent;
+}
+
+/* ==========================================================================
+   13 · MICRO-ANIMACIONES — discretas, enterprise
+   ========================================================================== */
+
+/* Fade-in suave de filas al cargar la tabla */
+@keyframes flagRowFade {
+    from { opacity: 0; transform: translateY(2px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.table-app tbody tr {
+    animation: flagRowFade 220ms ease-out both;
+}
+
+/* Stagger sutil: las primeras filas entran un poco después */
+.table-app tbody tr:nth-child(1)  { animation-delay: 0ms; }
+.table-app tbody tr:nth-child(2)  { animation-delay: 18ms; }
+.table-app tbody tr:nth-child(3)  { animation-delay: 36ms; }
+.table-app tbody tr:nth-child(4)  { animation-delay: 54ms; }
+.table-app tbody tr:nth-child(5)  { animation-delay: 72ms; }
+.table-app tbody tr:nth-child(6)  { animation-delay: 90ms; }
+.table-app tbody tr:nth-child(7)  { animation-delay: 108ms; }
+.table-app tbody tr:nth-child(8)  { animation-delay: 126ms; }
+.table-app tbody tr:nth-child(n+9){ animation-delay: 140ms; }
+
+/* Sort header click: ripple sutil */
+.sortable::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center, rgba(30,34,170,0.18) 0%, transparent 60%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 220ms ease;
+}
+.sortable:active::after { opacity: 1; transition: opacity 0ms; }
+
+/* Checkbox check animation */
+@keyframes flagCheckPop {
+    0%   { transform: scale(0.7); }
+    60%  { transform: scale(1.12); }
+    100% { transform: scale(1); }
+}
+.table-app input[type="checkbox"]:checked,
+.informes-table input[type="checkbox"]:checked {
+    animation: flagCheckPop 180ms ease-out;
+}
+
+/* Selected row: barra azul aparece con slide */
+@keyframes flagRowSelect {
+    from { box-shadow: inset 0 0 0 var(--flag-primary); }
+    to   { box-shadow: inset 3px 0 0 var(--flag-primary); }
+}
+.table-app tbody tr:has(input.row-select:checked),
+.informes-table tbody tr:has(input.row-select:checked) {
+    animation: flagRowSelect 160ms ease-out forwards;
+}
+
+/* Boolean chip pulse al cambiar de estado (cuando entra al DOM) */
+@keyframes flagChipFade {
+    from { opacity: 0; transform: scale(0.92); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.boolean-display { animation: flagChipFade 200ms ease-out; }
+
+/* Focus input: ring expandiéndose */
+@keyframes flagFocusRing {
+    from { box-shadow: 0 0 0 0 rgba(30,34,170,0); }
+    to   { box-shadow: var(--flag-ring); }
+}
+.table-app tbody td input:focus,
+.table-app tbody td select:focus {
+    animation: flagFocusRing 160ms ease-out forwards;
+}
+
+/* Respeta reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+    .table-app tbody tr,
+    .boolean-display,
+    .table-app input[type="checkbox"]:checked,
+    .table-app tbody td input:focus,
+    .sortable[data-direction="asc"] .sort-icon-asc,
+    .sortable[data-direction="desc"] .sort-icon-desc {
+        animation: none !important;
+    }
+}

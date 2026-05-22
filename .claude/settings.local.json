@@ -4,7 +4,8 @@
       "Bash(rtk ls *)",
       "Bash(rtk git *)",
       "Bash(rtk gh *)",
-      "Bash(git credential *)"
+      "Bash(git credential *)",
+      "WebFetch(domain:api.anthropic.com)"
     ]
   }
 }

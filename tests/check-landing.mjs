@@ -26,24 +26,28 @@ function assertOrder(source, items, label) {
   }
 }
 
+// ——— HTML shell ———
 assertIncludes(index, '<html lang="es">', "Spanish lang attribute");
 assertIncludes(index, "FLAG Soluciones | Partner SAP para implementación, soporte y evolución", "SEO title");
 assertIncludes(index, "GROW, RISE, BTP, SuccessFactors, Analítica y Seguridad SAP", "SEO meta description");
 
+// ——— Component order ———
 assertOrder(index, [
   "<Header",
   "<Hero",
-  "<PartnerBadge",
-  "<ClientsGrid",
-  "<WhyFlag",
+  "<SilverPartner",
   "<Solutions",
   "<Services",
+  "<Methodology",
   "<Accelerators",
-  "<About",
-  "<ContactForm",
+  "<ClientsV2",
+  "<Testimonials",
+  "<Nosotros",
+  "<CtaAndContact",
   "<Footer",
 ], "Main component order");
 
+// ——— Solution order (strings appear in data) ———
 assertOrder(index, [
   "GROW with SAP",
   "RISE with SAP",
@@ -52,6 +56,7 @@ assertOrder(index, [
   "Analítica SAP",
 ], "Solution order");
 
+// ——— Solution data check (label: format, impl/supp arrays) ———
 for (const solution of [
   "GROW with SAP",
   "RISE with SAP",
@@ -59,13 +64,14 @@ for (const solution of [
   "SAP SuccessFactors",
   "Analítica SAP",
 ]) {
-  const start = index.indexOf(`name: "${solution}"`);
+  const start = index.indexOf(`label:"${solution}"`);
   assert.ok(start >= 0, `Missing solution ${solution}`);
-  const excerpt = index.slice(start, start + 1600);
-  assertIncludes(excerpt, "Implementación", `${solution} implementation service`);
-  assertIncludes(excerpt, "Soporte", `${solution} support service`);
+  const excerpt = index.slice(start, start + 2000);
+  assertIncludes(excerpt, "impl:", `${solution} implementation list`);
+  assertIncludes(excerpt, "supp:", `${solution} support list`);
 }
 
+// ——— No invented claims ———
 for (const claim of [
   "98.6%",
   "1.284",
@@ -77,39 +83,37 @@ for (const claim of [
 ]) {
   assertNotIncludes(index, claim, `unvalidated claim ${claim}`);
 }
-
 assertNotIncludes(index, "Aliados destacados", "featured client hierarchy");
 assertNotIncludes(index, "Y muchos más", "secondary client hierarchy");
-assertIncludes(index, "Empresas que han confiado en FLAG Soluciones", "uniform clients section title");
-assertIncludes(index, "logo-placeholder", "clean logo placeholders for missing assets");
-assertIncludes(index, "clients-showcase", "premium clients showcase");
-assertIncludes(index, "clients-marquee", "client marquee wrapper");
-assertIncludes(index, "clients-marquee-track", "client marquee track");
-assertIncludes(index, "client-card-orbit", "premium client cards");
-assertIncludes(index, "client-trust-strip", "client trust signals");
 
-const growStart = index.indexOf('name: "GROW with SAP"');
+// ——— Clients section ———
+assertIncludes(index, "Empresas que han confiado en FLAG", "clients section title");
+assertIncludes(index, "clients-marquee", "client marquee wrapper");
+assertIncludes(index, "clients-row", "client marquee rows");
+assertIncludes(index, "cl2-card", "client cards");
+
+// ——— GROW with IA ———
+const growStart = index.indexOf('label:"GROW with SAP"');
 assert.ok(growStart >= 0, "Missing GROW solution");
 const growExcerpt = index.slice(growStart, growStart + 800);
 assert.ok(
-  growExcerpt.includes("inteligencia artificial") || growExcerpt.includes("Inteligencia artificial") || growExcerpt.includes("IA integrada"),
+  growExcerpt.includes("inteligencia artificial") ||
+  growExcerpt.includes("Inteligencia artificial") ||
+  growExcerpt.includes("IA integrada"),
   "GROW must mention inteligencia artificial or IA"
 );
 
+// ——— Hero ———
 assertIncludes(index, "hero-visual", "hero visual column");
-assertIncludes(index, "hero-pillar-card", "hero service pillar cards");
-assertIncludes(index, "hero-solutions-strip", "hero solutions strip");
-assertIncludes(index, "whyflag-grid", "why flag section grid");
 assertIncludes(index, "Flag Risk Alerts", "accelerators - flag risk alerts");
 
+// ——— Contact webhook / form ———
 assertIncludes(index, 'const CONTACT_WEBHOOK_URL = "PEGAR_WEBHOOK_AQUI";', "contact webhook constant");
 assertIncludes(index, "fetch(CONTACT_WEBHOOK_URL", "contact form POST");
 assertIncludes(index, 'origen: "Landing Flag Soluciones"', "contact payload origin");
 assertIncludes(index, "Gracias por contactarnos. Nuestro equipo revisará tu solicitud y se comunicará contigo próximamente.", "success message");
-assertIncludes(index, "contact-shell", "premium contact shell");
-assertIncludes(index, "contact-route", "contact route cards");
-assertIncludes(index, "contact-form-head", "contact form header");
 
+// ——— Contact form fields ———
 for (const field of [
   "Nombre",
   "Empresa",
@@ -122,6 +126,7 @@ for (const field of [
   assertIncludes(index, field, `contact field ${field}`);
 }
 
+// ——— Careers page ———
 assert.ok(existsSync(careersPath), "Missing trabaja-con-nosotros.html");
 assertIncludes(careers, "Trabaja con nosotros", "careers title");
 assertIncludes(careers, "Perfil o cargo de interés", "careers profile field");
@@ -129,22 +134,23 @@ assertIncludes(careers, "LinkedIn", "careers LinkedIn field");
 assertIncludes(careers, "Link de hoja de vida", "careers CV link field");
 assertIncludes(index, 'href="trabaja-con-nosotros.html"', "footer careers link");
 
+// ——— CSS tokens (new design) ———
 for (const cssToken of [
-  "--brand-blue:#1e22aa",
-  "--brand-cyan:#74d1ea",
-  ".solution-tabs",
-  ".solution-detail::before",
-  ".accelerator-card::before",
-  ".contact-form",
-  ".contact-shell",
-  ".contact-route-card",
-  ".clients-showcase",
+  "--blue:#1E22AA",
+  "--cyan:#74D1EA",
+  ".sol-accordion",
+  ".sol-acc-card",
+  ".hv-main",
+  ".hv-float",
+  ".modal-overlay",
+  ".modal-box",
   ".clients-marquee",
-  ".clients-marquee-track",
-  ".client-card-orbit",
+  ".clients-row",
+  ".cl2-card",
+  ".testi-card",
+  ".cta-final",
+  ".acc-card",
   ".hero-visual",
-  ".hero-pillar-card",
-  ".whyflag-grid",
 ]) {
   assertIncludes(styles, cssToken, `CSS token ${cssToken}`);
 }
