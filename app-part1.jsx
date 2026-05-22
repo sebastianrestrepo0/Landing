@@ -97,7 +97,7 @@ function Hero() {
             </div>
             <div className="hero-stats">
               <div className="stat"><div className="n">+25</div><div className="l">años de experiencia</div></div>
-              <div className="stat"><div className="n">+90</div><div className="l">especialistas SAP</div></div>
+              <div className="stat"><div className="n">SAP</div><div className="l">equipo consultivo</div></div>
               <div className="stat"><div className="n">CO · CA</div><div className="l">Colombia y Centroamérica</div></div>
               <div className="stat"><div className="n">end-to-end</div><div className="l">servicios SAP</div></div>
             </div>
@@ -126,8 +126,8 @@ function Hero() {
                 </div>
               </div>
               <div className="dash-legend">
-                <span>SLA cumplido · 98.6%</span>
-                <span>Tickets resueltos · 1.284</span>
+                <span>Continuidad operativa</span>
+                <span>Requerimientos priorizados</span>
               </div>
             </div>
 
@@ -205,7 +205,7 @@ function Trust() {
 
         <div className="cw-featured-label">
           <span className="cw-line"></span>
-          <span className="cw-label-text">Aliados destacados</span>
+          <span className="cw-label-text">Clientes</span>
           <span className="cw-line"></span>
         </div>
 
@@ -238,7 +238,7 @@ function Trust() {
 
         <div className="cw-featured-label" style={{marginTop:64}}>
           <span className="cw-line"></span>
-          <span className="cw-label-text">Y muchos más</span>
+          <span className="cw-label-text">Más organizaciones</span>
           <span className="cw-line"></span>
         </div>
 
@@ -268,9 +268,9 @@ function Trust() {
 
         <div className="cw-trust-strip">
           <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/><path d="m9 12 2 2 4-4"/></svg> Confidencialidad NDA</div>
-          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> SLA garantizados</div>
-          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg> Operación 24/7</div>
-          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 7 9 18l-5-5"/></svg> Consultores certificados SAP</div>
+          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg> Continuidad del servicio</div>
+          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg> Operación consultiva</div>
+          <div className="cw-trust-item"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M20 7 9 18l-5-5"/></svg> Equipo especializado SAP</div>
         </div>
       </div>
     </section>

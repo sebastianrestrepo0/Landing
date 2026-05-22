@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trabaja con nosotros | FLAG Soluciones</title>
+  <meta name="description" content="Queremos conocer profesionales interesados en hacer parte de proyectos SAP y soluciones empresariales con FLAG Soluciones." />
+  <meta name="theme-color" content="#1e22aa" />
+  <link rel="icon" href="assets/flag-logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body class="careers-page">
+  <header class="careers-header">
+    <div class="container">
+      <a href="index.html" aria-label="Volver a FLAG Soluciones">
+        <img src="assets/flag-logo.png" alt="FLAG Soluciones" />
+      </a>
+      <a class="btn btn-secondary btn-small" href="index.html#contacto">Volver a la landing</a>
+    </div>
+  </header>
+
+  <main class="careers-hero">
+    <div class="container careers-layout">
+      <section class="careers-copy" aria-labelledby="careers-title">
+        <span class="eyebrow">Talento SAP</span>
+        <h1 id="careers-title">Trabaja con nosotros</h1>
+        <p>
+          Queremos conocer profesionales interesados en hacer parte de proyectos SAP y soluciones empresariales.
+          Si tu experiencia conecta con implementación, soporte funcional, analítica, seguridad, BTP o automatización,
+          cuéntanos sobre tu perfil.
+        </p>
+        <div class="careers-card">
+          <strong>¿Qué buscamos?</strong>
+          <p>
+            Personas con criterio consultivo, interés por resolver problemas de negocio y disposición para crecer
+            en proyectos SAP con clientes empresariales.
+          </p>
+        </div>
+      </section>
+
+      <form class="careers-form" id="careers-form">
+        <label>
+          Nombre
+          <input name="nombre" required />
+        </label>
+        <div class="form-grid">
+          <label>
+            Correo
+            <input type="email" name="correo" required />
+          </label>
+          <label>
+            Celular
+            <input name="celular" />
+          </label>
+        </div>
+        <label>
+          Perfil o cargo de interés
+          <input name="perfil" required />
+        </label>
+        <label>
+          LinkedIn
+          <input name="linkedin" type="url" placeholder="https://www.linkedin.com/in/..." />
+        </label>
+        <label>
+          Link de hoja de vida
+          <input name="hojaVida" type="url" placeholder="Drive, Dropbox, portafolio o enlace público" />
+        </label>
+        <label>
+          Mensaje
+          <textarea name="mensaje" rows="5" placeholder="Cuéntanos brevemente sobre tu experiencia SAP"></textarea>
+        </label>
+        <div class="form-message success" id="careers-message" hidden>
+          Gracias por compartir tu perfil. El equipo de FLAG revisará tu información.
+        </div>
+        <button class="btn btn-primary" type="submit">Enviar perfil</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("careers-form");
+    const message = document.getElementById("careers-message");
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+      message.hidden = false;
+      form.reset();
+    });
+  </script>
+</body>
+</html>

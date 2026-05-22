@@ -180,7 +180,7 @@ function Company() {
             <p className="lead" style={{marginTop:16}}>La experiencia acumulada en cientos de procesos empresariales, configuraciones y desarrollos a la medida es la base del servicio que hoy entregamos a nuestros clientes.</p>
             <div style={{display:"flex",gap:12,marginTop:28,flexWrap:"wrap"}}>
               <span className="badge"><span className="dot"></span>+25 años</span>
-              <span className="badge"><span className="dot"></span>+90 especialistas</span>
+              <span className="badge"><span className="dot"></span>Equipo consultivo SAP</span>
               <span className="badge"><span className="dot"></span>Colombia · Centroamérica</span>
             </div>
           </div>
@@ -325,7 +325,7 @@ function Footer() {
             <p className="footer-tag">La confianza que da la experiencia. Consultoría SAP, analítica, seguridad y aceleradores digitales desde 1996.</p>
             <div className="footer-badges">
               <span className="footer-badge">30 años SAP</span>
-              <span className="footer-badge">+90 especialistas</span>
+              <span className="footer-badge">Equipo consultivo SAP</span>
               <span className="footer-badge">CO · Centroamérica</span>
             </div>
           </div>
