@@ -5,7 +5,9 @@
       "Bash(rtk git *)",
       "Bash(rtk gh *)",
       "Bash(git credential *)",
-      "WebFetch(domain:api.anthropic.com)"
+      "WebFetch(domain:api.anthropic.com)",
+      "PowerShell(\\(Get-Command python -ErrorAction SilentlyContinue\\).Source; \\(Get-Command npx -ErrorAction SilentlyContinue\\).Source)",
+      "mcp__Claude_Preview__preview_start"
     ]
   }
 }

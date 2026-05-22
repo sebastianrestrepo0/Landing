@@ -148,17 +148,20 @@
     function MobileMenu({ open, onClose }) {
       const nav = ["Soluciones","Servicios","Aceleradores","Clientes","Nosotros","Contacto"];
       return (
-        <div className={"mmenu " + (open ? "open" : "")}>
-          <div className="mmenu-head">
-            <img src="assets/flag-logo.png" alt="Flag Soluciones"/>
-            <button onClick={onClose} style={{color:"#fff"}}><I.close style={{width:24,height:24}}/></button>
+        <React.Fragment>
+          <div className={"mmenu-backdrop " + (open ? "open" : "")} onClick={onClose}></div>
+          <div className={"mmenu " + (open ? "open" : "")}>
+            <div className="mmenu-head">
+              <img src="assets/flag-logo.png" alt="Flag Soluciones"/>
+              <button onClick={onClose} style={{color:"#fff"}}><I.close style={{width:20,height:20}}/></button>
+            </div>
+            <nav>{nav.map(n => <a key={n} href={"#"+n.toLowerCase()} onClick={onClose}>{n}</a>)}</nav>
+            <div className="mmenu-cta">
+              <a href="#contacto" className="btn btn-primary" style={{justifyContent:"center"}} onClick={e=>{e.preventDefault();onClose();window.openContactModal&&window.openContactModal()}}>Solicitar asesoría SAP</a>
+              <a href="#soluciones" className="btn btn-outline-light" style={{justifyContent:"center"}} onClick={onClose}>Conocer soluciones</a>
+            </div>
           </div>
-          <nav>{nav.map(n => <a key={n} href={"#"+n.toLowerCase()} onClick={onClose}>{n}</a>)}</nav>
-          <div className="mmenu-cta">
-            <a href="#contacto" className="btn btn-primary" style={{justifyContent:"center"}} onClick={e=>{e.preventDefault();onClose();window.openContactModal&&window.openContactModal()}}>Solicitar asesoría SAP</a>
-            <a href="#soluciones" className="btn btn-outline-light" style={{justifyContent:"center"}} onClick={onClose}>Conocer soluciones</a>
-          </div>
-        </div>
+        </React.Fragment>
       );
     }
 
@@ -374,11 +377,17 @@
                 <div
                   key={s.id}
                   className={"sol-acc-card " + (active===s.id?"on":"")}
-                  onClick={() => setActive(s.id)}
-                  onMouseEnter={() => setActive(s.id)}
+                  onClick={() => {
+                    if(window.matchMedia('(max-width:860px)').matches){
+                      setActive(active===s.id ? null : s.id);
+                    } else {
+                      setActive(s.id);
+                    }
+                  }}
+                  onMouseEnter={() => { if(!window.matchMedia('(max-width:860px)').matches) setActive(s.id); }}
                   role="button"
                   tabIndex={0}
-                  onKeyDown={e => e.key==="Enter" && setActive(s.id)}
+                  onKeyDown={e => e.key==="Enter" && setActive(active===s.id?null:s.id)}
                   aria-expanded={active===s.id}
                 >
                   <div className="sol-acc-collapsed">
