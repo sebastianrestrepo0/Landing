@@ -111,7 +111,7 @@
       const [scrolled, setScrolled] = useState(false);
       const [active, setActive] = useState("inicio");
       useEffect(() => {
-        const sections = ["inicio","soluciones","servicios","aceleradores","clientes","nosotros","contacto"];
+        const sections = ["inicio","soluciones","servicios","productos","clientes","nosotros","contacto"];
         const fn = () => {
           setScrolled(window.scrollY > 20);
           const cur = sections.find(id => {
@@ -125,7 +125,7 @@
         window.addEventListener("scroll", fn, { passive: true });
         return () => window.removeEventListener("scroll", fn);
       }, []);
-      const nav = [["Soluciones","soluciones"],["Servicios","servicios"],["Aceleradores","aceleradores"],["Clientes","clientes"],["Nosotros","nosotros"],["Contacto","contacto"]];
+      const nav = [["Soluciones","soluciones"],["Servicios","servicios"],["Productos","productos"],["Clientes","clientes"],["Nosotros","nosotros"],["Contacto","contacto"]];
       return (
         <header className={"header " + (scrolled ? "scrolled" : "")}>
           <div className="wrap hdr">
@@ -146,7 +146,7 @@
 
     // ======== MOBILE MENU ========
     function MobileMenu({ open, onClose }) {
-      const nav = ["Soluciones","Servicios","Aceleradores","Clientes","Nosotros","Contacto"];
+      const nav = ["Soluciones","Servicios","Productos","Clientes","Nosotros","Contacto"];
       return (
         <React.Fragment>
           <div className={"mmenu-backdrop " + (open ? "open" : "")} onClick={onClose}></div>
@@ -226,6 +226,7 @@
                     </div>
                   </div>
                   <div className="hv-stats">
+                    <div className="hv-stat"><div className="hv-stat-v">RISE</div><div className="hv-stat-l">Transformación cloud</div></div>
                     <div className="hv-stat"><div className="hv-stat-v">GROW</div><div className="hv-stat-l">S/4HANA Cloud</div></div>
                     <div className="hv-stat"><div className="hv-stat-v">BTP</div><div className="hv-stat-l">Integración</div></div>
                     <div className="hv-stat"><div className="hv-stat-v">SAC</div><div className="hv-stat-l">Analítica</div></div>
@@ -233,18 +234,18 @@
                 </div>
 
                 <div className="hv-float f1">
-                  <div className="hv-float-ico green"><I.check style={{width:16,height:16}}/></div>
+                  <div className="hv-float-ico blue"><I.cloud style={{width:16,height:16}}/></div>
                   <div>
-                    <div className="hv-float-t">Soporte funcional</div>
-                    <div className="hv-float-s">Equipo SAP disponible</div>
+                    <div className="hv-float-t">RISE with SAP</div>
+                    <div className="hv-float-s">Transformación integral</div>
                   </div>
                 </div>
 
                 <div className="hv-float f2">
-                  <div className="hv-float-ico blue"><I.users style={{width:16,height:16}}/></div>
-                  <div style={{flex:1,minWidth:0}}>
-                    <div className="hv-float-t">HCM Cloud</div>
-                    <div className="hv-float-bar"><i style={{"--w":"82%"}}></i></div>
+                  <div className="hv-float-ico green"><I.check style={{width:16,height:16}}/></div>
+                  <div>
+                    <div className="hv-float-t">Soporte funcional</div>
+                    <div className="hv-float-s">Equipo SAP disponible</div>
                   </div>
                 </div>
 
@@ -504,8 +505,8 @@
       );
     }
 
-    // ======== ACCELERATORS ========
-    const ACCS = [
+    // ======== PRODUCTS ========
+    const PRODUCTS = [
       { featured:true, tag:"Datos maestros", ico:<I.layers style={{width:24,height:24}}/>, name:"Flag Master Materials®", desc:"Solución orientada al gobierno, normalización y trazabilidad de datos maestros de materiales en SAP. Reglas de calidad, flujos de aprobación y visibilidad completa para áreas de abastecimiento y operaciones." },
       { tag:"Seguridad", ico:<I.bolt style={{width:22,height:22}}/>, name:"Flag Risk Alerts®", desc:"Acelerador para identificar, priorizar y monitorear riesgos dentro del ecosistema SAP con alertas tempranas y visibilidad ejecutiva." },
       { tag:"Seguridad", ico:<I.shield style={{width:22,height:22}}/>, name:"Flag Security Assistant®", desc:"Herramienta de apoyo para la gestión de roles, autorizaciones, controles y segregación de funciones en SAP." },
@@ -513,18 +514,18 @@
       { tag:"Conversacional", ico:<I.users style={{width:22,height:22}}/>, name:"Bots conversacionales", desc:"Asistentes para orientar usuarios, resolver dudas frecuentes, apoyar el soporte SAP y facilitar la captura de necesidades." },
     ];
 
-    function Accelerators() {
+    function Products() {
       const [activeAcc, setActiveAcc] = React.useState(0);
       return (
-        <section id="aceleradores" className="section acc">
+        <section id="productos" className="section acc">
           <div className="wrap">
             <div className="reveal" style={{textAlign:"center",maxWidth:680,margin:"0 auto"}}>
-              <div className="eyebrow"><span className="eyebrow-dot"></span>Aceleradores FLAG</div>
-              <h2 style={{fontSize:"clamp(26px,3vw,40px)",marginTop:16,color:"var(--navy)"}}>Aceleradores FLAG para optimizar procesos SAP</h2>
+              <div className="eyebrow"><span className="eyebrow-dot"></span>Productos FLAG</div>
+              <h2 style={{fontSize:"clamp(26px,3vw,40px)",marginTop:16,color:"var(--navy)"}}>Productos FLAG para optimizar procesos SAP</h2>
               <p style={{fontSize:16,color:"var(--slate)",marginTop:12,lineHeight:1.55}}>Herramientas y capacidades desarrolladas a partir de nuestra experiencia para mejorar gobierno, seguridad, automatización y eficiencia operativa.</p>
             </div>
             <div className="acc-grid reveal">
-              {ACCS.map((a,i) => (
+              {PRODUCTS.map((a,i) => (
                 <div key={a.name} className={"acc-card " + (activeAcc===i?"featured":"")} onMouseEnter={() => setActiveAcc(i)} onFocus={() => setActiveAcc(i)} tabIndex="0" aria-current={activeAcc===i ? "true" : "false"}>
                   <div className="acc-shine"></div>
                   <span className="acc-tag">{a.tag}</span>
@@ -653,7 +654,7 @@
     }
 
     // ======== CONTACT MODAL ========
-    const SOL_OPTIONS = ["GROW with SAP","RISE with SAP","SAP BTP","SAP SuccessFactors","Analítica SAP","Seguridad SAP","Soporte funcional","Aceleradores / RPA","Otro"];
+    const SOL_OPTIONS = ["GROW with SAP","RISE with SAP","SAP BTP","SAP SuccessFactors","Analítica SAP","Seguridad SAP","Soporte funcional","Productos FLAG","Otro"];
 
     function ContactModal({ open, onClose, preselect }) {
       const [form, setForm] = useState({nombre:"",empresa:"",cargo:"",correo:"",celular:"",solucion:"",mensaje:""});
@@ -822,7 +823,7 @@
             <div className="footer-top">
               <div>
                 <img src="assets/flag-logo.png" alt="Flag Soluciones" className="footer-logo"/>
-                <p className="footer-tag">La confianza que da la experiencia. Consultoría SAP, analítica, seguridad y aceleradores digitales desde 1995.</p>
+                <p className="footer-tag">La confianza que da la experiencia. Consultoría SAP, analítica, seguridad y productos propios desde 1995.</p>
                 <div className="footer-badges">
                   <span className="f-badge">SAP Silver Partner</span>
                   <span className="f-badge">Desde 1995</span>
@@ -847,7 +848,7 @@
                 <h5>Compañía</h5>
                 <ul>
                   <li><a href="#servicios">Servicios</a></li>
-                  <li><a href="#aceleradores">Aceleradores</a></li>
+                  <li><a href="#productos">Productos</a></li>
                   <li><a href="#clientes">Clientes</a></li>
                   <li><a href="#nosotros">Nosotros</a></li>
                   <li><a href="trabaja-con-nosotros.html">Trabaja con nosotros</a></li>
@@ -910,7 +911,7 @@
             <Solutions />
             <Services />
             <Methodology />
-            <Accelerators />
+            <Products />
             <ClientsV2 />
             <Testimonials />
             <Nosotros />
