@@ -252,7 +252,7 @@
                 <div className="hv-float f3">
                   <div className="hv-float-ico orange"><I.shield style={{width:16,height:16}}/></div>
                   <div>
-                    <div className="hv-float-t">Flag Risk Alerts®</div>
+                    <div className="hv-float-t">Acelerador de Riesgos SAP</div>
                     <div className="hv-float-s">Monitoreo activo</div>
                   </div>
                 </div>
@@ -434,13 +434,51 @@
     }
 
     // ======== SERVICES ========
+    const SERVICE_LINES = [
+      { ico:<I.map style={{width:18,height:18}}/>, t:"Asesoría Estratégica", d:"Evaluamos tu estado actual para diseñar la hoja de ruta hacia la digitalización de tu negocio." },
+      { ico:<I.cpu style={{width:18,height:18}}/>, t:"Implementación Precisa", d:"Desplegamos e integramos tus sistemas asegurando la continuidad de la operación." },
+      { ico:<I.grow style={{width:18,height:18}}/>, t:"Optimización Continua", d:"Evaluamos tus sistemas activos para corregir ineficiencias y maximizar el rendimiento." },
+      { ico:<I.clock style={{width:18,height:18}}/>, t:"Soporte Especializado", d:"Garantizamos soporte técnico continuo y resolución de incidentes." },
+    ];
+
     const SVCS = [
-      { ico:<I.bolt style={{width:22,height:22}}/>, cls:"svc-ico-1", t:"Implementación", d:"Acompañamos proyectos de implementación SAP con metodología probada, gestión del cambio y enfoque en la generación de valor para el negocio.", tag:"Proyectos" },
-      { ico:<I.clock style={{width:22,height:22}}/>, cls:"svc-ico-2", t:"Soporte funcional", d:"Equipo especializado para la atención de incidentes, dudas y requerimientos funcionales del día a día del ecosistema SAP.", tag:"Operación" },
-      { ico:<I.grow style={{width:22,height:22}}/>, cls:"svc-ico-3", t:"Mejoras y evolución", d:"Identificamos y ejecutamos oportunidades de mejora, nuevas funcionalidades y optimizaciones continuas sobre los sistemas SAP existentes.", tag:"Evolución" },
-      { ico:<I.cpu style={{width:22,height:22}}/>, cls:"svc-ico-4", t:"Fábrica de soluciones", d:"Desarrollo y configuración de soluciones SAP a la medida de los requerimientos del negocio, bajo metodologías ágiles y gobierno de calidad.", tag:"Desarrollo" },
-      { ico:<I.shield style={{width:22,height:22}}/>, cls:"svc-ico-5", t:"Seguridad SAP", d:"Diagnóstico, gestión y mejora continua de la seguridad SAP: roles, autorizaciones, segregación de funciones y cumplimiento normativo.", tag:"Seguridad" },
-      { ico:<I.chart style={{width:22,height:22}}/>, cls:"svc-ico-6", t:"Analítica y datos", d:"Diseño e implementación de modelos de datos, reportes y dashboards para poner información confiable al servicio de la toma de decisiones.", tag:"Datos" },
+      { ico:<I.bolt style={{width:22,height:22}}/>, cls:"svc-ico-1", t:"Implementación de Proyectos SAP",
+        d:"Acompañamos a tu empresa en el despliegue de soluciones SAP utilizando un enfoque integral que garantiza el éxito del proyecto de principio a fin.",
+        pts:[["Metodología Probada","Aplicamos marcos de trabajo estándar (como SAP Activate) para asegurar entregas en tiempos óptimos, mitigando riesgos técnicos y operativos."],
+             ["Gestión del Cambio","Preparamos, capacitamos y acompañamos a tu equipo humano para acelerar la adopción de la nueva plataforma y reducir la resistencia."],
+             ["Generación de Valor","Diseñamos la solución enfocados en tus objetivos de negocio, asegurando un retorno de inversión (ROI) claro y procesos más eficientes."]],
+        tag:"Proyectos" },
+      { ico:<I.clock style={{width:22,height:22}}/>, cls:"svc-ico-2", t:"Soporte Funcional SAP",
+        d:"Protegemos la continuidad de tu negocio mediante un equipo especializado encargado de la atención ágil de requerimientos del día a día de tu ecosistema SAP.",
+        pts:[["Gestión de Incidentes","Resolución oportuna de fallas y errores operativos para mitigar impactos en la operación diaria."],
+             ["Atención de Dudas","Acompañamiento a usuarios clave y finales en el uso correcto de las transacciones del sistema."],
+             ["Requerimientos Diarios","Ajustes funcionales menores, parametrizaciones y mejoras continuas según las necesidades del negocio."]],
+        tag:"Operación" },
+      { ico:<I.grow style={{width:22,height:22}}/>, cls:"svc-ico-3", t:"Mejoras y Evolución SAP",
+        d:"Tu empresa cambia, tus sistemas también deben hacerlo. Maximizamos el rendimiento de tu inversión actual identificando y ejecutando optimizaciones continuas sobre tu ecosistema SAP existente.",
+        pts:[["Oportunidades de Mejora","Auditamos tus flujos de trabajo actuales para eliminar cuellos de botella y procesos redundantes."],
+             ["Nuevas Funcionalidades","Activamos y configuramos capacidades nativas de SAP que tu negocio necesita para sus nuevos retos."],
+             ["Optimización Continua","Adaptamos el sistema a cambios regulatorios, nuevos modelos de ingresos o reestructuraciones operativas."]],
+        tag:"Evolución" },
+      { ico:<I.cpu style={{width:22,height:22}}/>, cls:"svc-ico-4", t:"Fábrica de Soluciones SAP",
+        d:"Construimos las soluciones que tu negocio necesita para diferenciarse. Diseñamos y desarrollamos extensiones o adaptaciones SAP a la medida, asegurando código limpio y arquitecturas escalables.",
+        pts:[["Soluciones a la Medida","Desarrollamos reportes específicos, integraciones (APIs) y aplicaciones personalizadas (ej. SAP Fiori o desarrollos en ABAP / BTP) según tus requerimientos de negocio."],
+             ["Metodologías Ágiles","Entregamos valor en tiempos cortos y de forma incremental, permitiéndote probar avances rápidamente y ajustar el rumbo sin retrasos."],
+             ["Gobierno de Calidad","Aplicamos estrictas pruebas de control, documentación técnica y mejores prácticas para garantizar que los desarrollos no afecten la estabilidad de tu sistema estándar."]],
+        tag:"Desarrollo" },
+      { ico:<I.shield style={{width:22,height:22}}/>, cls:"svc-ico-5", t:"Seguridad SAP y Control de Accesos",
+        d:"Protegemos el activo más valioso de tu empresa: sus datos. Evaluamos, diseñamos y optimizamos la matriz de accesos de tu ERP para garantizar un entorno seguro, controlado y listo para superar cualquier auditoría.",
+        pts:[["Roles y Autorizaciones","Diseñamos perfiles de usuario precisos (quién puede ver, editar o aprobar), asegurando que cada colaborador tenga acceso estrictamente a lo que necesita para su función."],
+             ["Segregación de Funciones (SoD)","Identificamos y corregimos conflictos de funciones (por ejemplo, que la misma persona que crea un proveedor no sea la que aprueba el pago), mitigando riesgos de fraude interno."],
+             ["Cumplimiento Normativo","Alineamos tu sistema con estándares internacionales y locales, preparando diagnósticos continuos para asegurar reportes limpios ante auditorías internas y externas."],
+             ["Remediar","Solucionamos los hallazgos identificados antes posibles auditoria, diagnósticos de seguridad o por mejoramiento continuo."]],
+        tag:"Seguridad" },
+      { ico:<I.chart style={{width:22,height:22}}/>, cls:"svc-ico-6", t:"Analítica y Datos SAP",
+        d:"Transforma el flujo de información de tu empresa en una herramienta de predicción y control. Diseñamos arquitecturas de datos y tableros interactivos para que tu equipo tome decisiones con total certeza de forma ágil.",
+        pts:[["Modelado de Datos","Estructuramos y limpiamos las fuentes de información de tu ERP, creando bases sólidas, unificadas y sin silos entre departamentos."],
+             ["Reportes Centralizados","Automatizamos la extracción de indicadores para que dejes de gastar tiempo armando hojas de cálculo manuales al cierre de mes."],
+             ["Dashboards Interactivos","Desarrollamos tableros visuales en tiempo real (usando herramientas como SAP Analytics Cloud, Power BI, etc.) adaptados a los KPI críticos de cada dirección."]],
+        tag:"Datos" },
     ];
 
     function Services() {
@@ -452,12 +490,28 @@
               <h2 style={{fontSize:"clamp(26px,3vw,40px)",marginTop:16,color:"var(--navy)"}}>Servicios que acompañan cada etapa de su ecosistema SAP</h2>
               <p style={{fontSize:16,color:"var(--slate)",marginTop:12,lineHeight:1.55}}>Desde la implementación inicial hasta el soporte funcional, la seguridad, las mejoras y la evolución continua.</p>
             </div>
+            <div className="svc-lines reveal">
+              {SERVICE_LINES.map(l => (
+                <div key={l.t} className="svc-line">
+                  <div className="svc-line-ico">{l.ico}</div>
+                  <div>
+                    <div className="svc-line-t">{l.t}</div>
+                    <div className="svc-line-d">{l.d}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
             <div className="svc-grid">
               {SVCS.map((s,i) => (
                 <div key={s.t} className="svc-card reveal" style={{transitionDelay:(i%3*.06)+"s"}}>
                   <div className={"svc-ico "+s.cls}>{s.ico}</div>
                   <h3>{s.t}</h3>
                   <p>{s.d}</p>
+                  {s.pts && (
+                    <ul className="card-bullets">
+                      {s.pts.map(([b,t]) => <li key={b}><b>{b}:</b> {t}</li>)}
+                    </ul>
+                  )}
                   <div className="svc-tag">{s.tag}</div>
                 </div>
               ))}
@@ -507,11 +561,26 @@
 
     // ======== PRODUCTS ========
     const PRODUCTS = [
-      { featured:true, tag:"Datos maestros", ico:<I.layers style={{width:24,height:24}}/>, name:"Flag Master Materials®", desc:"Solución orientada al gobierno, normalización y trazabilidad de datos maestros de materiales en SAP. Reglas de calidad, flujos de aprobación y visibilidad completa para áreas de abastecimiento y operaciones." },
-      { tag:"Seguridad", ico:<I.bolt style={{width:22,height:22}}/>, name:"Flag Risk Alerts®", desc:"Acelerador para identificar, priorizar y monitorear riesgos dentro del ecosistema SAP con alertas tempranas y visibilidad ejecutiva." },
+      { featured:true, tag:"Datos maestros", ico:<I.layers style={{width:24,height:24}}/>, name:"Flag Master Materials®",
+        subtitle:"Gobierno y Control de Datos Maestros de Materiales",
+        desc:"Elimina los errores de inventario y las ineficiencias en compras. Implementamos una solución integral para gobernar, normalizar y garantizar la trazabilidad total del catálogo de materiales de tu empresa en SAP.",
+        pts:[["Reglas de Calidad Automáticas","Establecemos estándares estrictos de catalogación y taxonomía para evitar la creación de códigos duplicados o descripciones ambiguas."],
+             ["Flujos de Aprobación Centralizados","Automatizamos los flujos de trabajo (workflows) para que cada alta o modificación de material pase por las validaciones correctas antes de afectar la operación."],
+             ["Visibilidad de Extremo a Extremo","Otorgamos un control total a las áreas de abastecimiento y operaciones, asegurando que utilicen información confiable, limpia y auditable."]] },
+      { tag:"Seguridad", ico:<I.bolt style={{width:22,height:22}}/>, name:"Acelerador de Gestión de Riesgos SAP",
+        desc:"Toma el control preventivo de tu ERP. Implementamos un acelerador especializado que te permite identificar, priorizar y monitorear vulnerabilidades y riesgos operativos dentro de tu ecosistema SAP de forma ágil y centralizada.",
+        pts:[["Alertas Tempranas","Recibe notificaciones automatizadas ante comportamientos inusuales, accesos no autorizados o desviaciones críticas antes de que afecten la operación."],
+             ["Priorización Inteligente","Clasifica las amenazas y brechas de seguridad según su nivel de impacto financiero u operativo, permitiendo a tu equipo técnico actuar primero en lo más crítico."],
+             ["Visibilidad Ejecutiva","Accede a tableros de control de alto nivel diseñados para directores y comités de auditoría, mostrando el estado de salud y riesgo del negocio en tiempo real."]] },
       { tag:"Seguridad", ico:<I.shield style={{width:22,height:22}}/>, name:"Flag Security Assistant®", desc:"Herramienta de apoyo para la gestión de roles, autorizaciones, controles y segregación de funciones en SAP." },
       { tag:"Automatización", ico:<I.cpu style={{width:22,height:22}}/>, name:"RPA sobre procesos SAP", desc:"Automatización de tareas repetitivas sobre procesos SAP para reducir carga operativa, errores manuales y tiempos de ejecución." },
       { tag:"Conversacional", ico:<I.users style={{width:22,height:22}}/>, name:"Bots conversacionales", desc:"Asistentes para orientar usuarios, resolver dudas frecuentes, apoyar el soporte SAP y facilitar la captura de necesidades." },
+      { tag:"Seguridad", ico:<I.shield style={{width:22,height:22}}/>, name:"Diagnóstico Seguridad",
+        desc:"Evaluamos a fondo el ambiente productivo de tu sistema SAP para garantizar un control total de los accesos corporativos. Este análisis se enfoca en tres pilares críticos:",
+        pts:[["Estructura de roles y perfiles","Verificación de accesos asignados a los usuarios."],
+             ["Segregación de funciones (SoD)","Prevención de conflictos operacionales y riesgos de fraude."],
+             ["Control de programas","Revisión de transacciones y ejecuciones configuradas."]],
+        note:"El diagnóstico se ejecuta bajo la matriz estándar de Flag Soluciones, una herramienta especializada que contrasta el estado actual de tu plataforma frente a 221 riesgos críticos de Segregación de Funciones (SoD)." },
     ];
 
     function Products() {
@@ -531,7 +600,14 @@
                   <span className="acc-tag">{a.tag}</span>
                   <div className="acc-ico">{a.ico}</div>
                   <div className="acc-name">{a.name}</div>
+                  {a.subtitle && <div className="acc-subtitle">{a.subtitle}</div>}
                   <div className="acc-desc">{a.desc}</div>
+                  {activeAcc===i && a.pts && (
+                    <ul className="card-bullets">
+                      {a.pts.map(([b,t]) => <li key={b}><b>{b}:</b> {t}</li>)}
+                    </ul>
+                  )}
+                  {activeAcc===i && a.note && <div className="acc-note">{a.note}</div>}
                 </div>
               ))}
             </div>
