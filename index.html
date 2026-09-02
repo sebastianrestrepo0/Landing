@@ -560,7 +560,7 @@
               {SVCS.map((s,i) => {
                 const isOpen = openSvc === i;
                 return (
-                  <div key={s.t} className={"svc-card reveal " + (isOpen?"open":"")} style={{transitionDelay:(i%3*.06)+"s"}} onMouseLeave={() => closeSvc(i)}>
+                  <div key={s.t} className="svc-card reveal" data-open={isOpen} style={{transitionDelay:(i%3*.06)+"s"}} onMouseLeave={() => closeSvc(i)}>
                     <div className={"svc-ico "+s.cls}>{s.ico}</div>
                     <h3>{s.t}</h3>
                     <p>{s.d}</p>

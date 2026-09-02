@@ -150,7 +150,7 @@ h1,h2,h3,h4{letter-spacing:-.025em;line-height:1.1;font-weight:700}
 .svc-toggle-ico.open{transform:rotate(180deg)}
 .svc-detail{position:absolute;top:100%;left:0;right:0;height:0;overflow:hidden;z-index:5;background:#fff;border:1px solid var(--border);border-top:none;border-radius:0 0 var(--r-lg) var(--r-lg);box-shadow:var(--sh-md)}
 .svc-detail-inner{padding:14px 28px 24px}
-.svc-card.open{z-index:20}
+.svc-card[data-open="true"]{z-index:20}
 .svc-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:var(--blue-s);padding:4px 10px;border-radius:var(--r-pill);margin-top:14px}
 .svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--g-primary);transform:scaleX(0);transform-origin:left;transition:transform .32s ease;border-radius:var(--r-lg) var(--r-lg) 0 0}
 .svc-card:hover::before{transform:scaleX(1)}
