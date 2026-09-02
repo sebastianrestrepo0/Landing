@@ -486,34 +486,54 @@
     ];
 
     function Services() {
-      const [openSvc, setOpenSvc] = useState(() => new Set());
+      const [openSvc, setOpenSvc] = useState(null);
       const detailRefs = useRef({});
 
-      const toggleSvc = (i) => {
-        const el = detailRefs.current[i];
-        const isOpen = openSvc.has(i);
-        const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (el && window.anime) {
-          if (isOpen) {
-            const current = el.getBoundingClientRect().height;
-            window.anime.set(el, { height: current });
-            window.anime({ targets: el, height: 0, duration: reduced ? 0 : 220, easing: "easeInQuad" });
-            setTimeout(() => { el.style.height = "0px"; }, reduced ? 0 : 260);
-          } else {
-            el.style.height = "auto";
-            const target = el.scrollHeight;
-            window.anime.set(el, { height: 0 });
-            window.anime({ targets: el, height: target, duration: reduced ? 0 : 360, easing: "easeOutQuad",
-              complete: () => { el.style.height = "auto"; } });
-            setTimeout(() => { el.style.height = "auto"; }, reduced ? 0 : 400);
-          }
-        } else if (el) {
-          el.style.height = isOpen ? "0px" : "auto";
+      const isReducedMotion = () => window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      const animateOpen = (el) => {
+        if (!el) return;
+        const reduced = isReducedMotion();
+        el.style.height = "auto";
+        const target = el.scrollHeight;
+        if (window.anime) {
+          window.anime.set(el, { height: 0 });
+          window.anime({ targets: el, height: target, duration: reduced ? 0 : 360, easing: "easeOutQuad",
+            complete: () => { el.style.height = "auto"; } });
+          setTimeout(() => { el.style.height = "auto"; }, reduced ? 0 : 400);
+        } else {
+          el.style.height = target + "px";
         }
+      };
+
+      const animateClose = (el) => {
+        if (!el) return;
+        const reduced = isReducedMotion();
+        const current = el.getBoundingClientRect().height;
+        if (window.anime) {
+          window.anime.set(el, { height: current });
+          window.anime({ targets: el, height: 0, duration: reduced ? 0 : 220, easing: "easeInQuad" });
+          setTimeout(() => { el.style.height = "0px"; }, reduced ? 0 : 260);
+        } else {
+          el.style.height = "0px";
+        }
+      };
+
+      const toggleSvc = (i) => {
+        if (openSvc === i) {
+          animateClose(detailRefs.current[i]);
+          setOpenSvc(null);
+        } else {
+          if (openSvc !== null) animateClose(detailRefs.current[openSvc]);
+          animateOpen(detailRefs.current[i]);
+          setOpenSvc(i);
+        }
+      };
+
+      const closeSvc = (i) => {
         setOpenSvc(prev => {
-          const next = new Set(prev);
-          isOpen ? next.delete(i) : next.add(i);
-          return next;
+          if (prev === i) { animateClose(detailRefs.current[i]); return null; }
+          return prev;
         });
       };
 
@@ -538,9 +558,9 @@
             </div>
             <div className="svc-grid">
               {SVCS.map((s,i) => {
-                const isOpen = openSvc.has(i);
+                const isOpen = openSvc === i;
                 return (
-                  <div key={s.t} className={"svc-card reveal " + (isOpen?"open":"")} style={{transitionDelay:(i%3*.06)+"s"}}>
+                  <div key={s.t} className={"svc-card reveal " + (isOpen?"open":"")} style={{transitionDelay:(i%3*.06)+"s"}} onMouseLeave={() => closeSvc(i)}>
                     <div className={"svc-ico "+s.cls}>{s.ico}</div>
                     <h3>{s.t}</h3>
                     <p>{s.d}</p>
@@ -642,22 +662,33 @@
               <p style={{fontSize:16,color:"var(--slate)",marginTop:12,lineHeight:1.55}}>Herramientas y capacidades desarrolladas a partir de nuestra experiencia para mejorar gobierno, seguridad, automatización y eficiencia operativa.</p>
             </div>
             <div className="acc-grid reveal">
-              {PRODUCTS.map((a,i) => (
-                <div key={a.name} className={"acc-card " + (activeAcc===i?"featured":"")} onMouseEnter={() => setActiveAcc(i)} onFocus={() => setActiveAcc(i)} tabIndex="0" aria-current={activeAcc===i ? "true" : "false"}>
-                  <div className="acc-shine"></div>
-                  <span className="acc-tag">{a.tag}</span>
-                  <div className="acc-ico">{a.ico}</div>
-                  <div className="acc-name">{a.name}</div>
-                  {a.subtitle && <div className="acc-subtitle">{a.subtitle}</div>}
-                  <div className="acc-desc">{a.desc}</div>
-                  {activeAcc===i && a.pts && (
-                    <ul className="card-bullets">
-                      {a.pts.map(([b,t]) => <li key={b}><b>{b}:</b> {t}</li>)}
-                    </ul>
-                  )}
-                  {activeAcc===i && a.note && <div className="acc-note">{a.note}</div>}
-                </div>
-              ))}
+              {PRODUCTS.map((a,i) => {
+                const isFeatured = activeAcc===i;
+                return (
+                  <div key={a.name} className={"acc-card " + (isFeatured?"featured":"")}
+                    onMouseEnter={() => setActiveAcc(i)} onFocus={() => setActiveAcc(i)}
+                    onMouseLeave={() => setActiveAcc(p => p===i ? null : p)}
+                    onBlur={() => setActiveAcc(p => p===i ? null : p)}
+                    tabIndex="0" aria-current={isFeatured ? "true" : "false"}>
+                    <div className="acc-shine"></div>
+                    <span className="acc-tag">{a.tag}</span>
+                    <div className="acc-ico">{a.ico}</div>
+                    <div className="acc-name">{a.name}</div>
+                    {a.subtitle && <div className="acc-subtitle">{a.subtitle}</div>}
+                    <div className="acc-desc">{a.desc}</div>
+                    {isFeatured && (a.pts || a.note) && (
+                      <div className="acc-overlay">
+                        {a.pts && (
+                          <ul className="card-bullets">
+                            {a.pts.map(([b,t]) => <li key={b}><b>{b}:</b> {t}</li>)}
+                          </ul>
+                        )}
+                        {a.note && <div className="acc-note">{a.note}</div>}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
