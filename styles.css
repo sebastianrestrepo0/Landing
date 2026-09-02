@@ -143,7 +143,14 @@ h1,h2,h3,h4{letter-spacing:-.025em;line-height:1.1;font-weight:700}
 .svc-ico-5{background:linear-gradient(135deg,#FFF0EE,#FFD4CC);color:#B03010}
 .svc-ico-6{background:linear-gradient(135deg,#EEF2FF,#C8D8FF);color:var(--navy)}
 .svc-card h3{font-size:18px;font-weight:700;margin-bottom:8px;color:var(--navy)}
-.svc-card p{font-size:14px;line-height:1.55;color:var(--slate)}
+.svc-card p{font-size:14px;line-height:1.55;color:var(--slate);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.svc-card.open p{-webkit-line-clamp:unset}
+.svc-toggle{display:inline-flex;align-items:center;gap:6px;margin-top:12px;padding:6px 0;background:none;border:none;font:inherit;font-size:13px;font-weight:700;color:var(--blue);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.svc-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:4px}
+.svc-toggle-ico{transition:transform .25s ease;flex-shrink:0}
+.svc-toggle-ico.open{transform:rotate(180deg)}
+.svc-detail{height:0;overflow:hidden}
+.svc-detail-inner{padding-top:2px}
 .svc-tag{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);background:var(--blue-s);padding:4px 10px;border-radius:var(--r-pill);margin-top:14px}
 .svc-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:var(--g-primary);transform:scaleX(0);transform-origin:left;transition:transform .32s ease;border-radius:var(--r-lg) var(--r-lg) 0 0}
 .svc-card:hover::before{transform:scaleX(1)}
