@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FLAG Soluciones | Partner SAP para implementación, soporte y evolución</title>
-  <meta name="description" content="FLAG Soluciones acompaña a empresas en la implementación, soporte y evolución de soluciones SAP como GROW, RISE, BTP, SuccessFactors, Analítica y Seguridad SAP." />
+  <title>FLAG Soluciones | Partner SAP para implementación, evolución y soporte</title>
+  <meta name="description" content="FLAG Soluciones acompaña a empresas en la implementación, evolución y soporte de soluciones SAP como GROW, RISE, BTP, Analítica y Seguridad SAP." />
   <meta name="theme-color" content="#1e22aa" />
-  <meta property="og:title" content="FLAG Soluciones | Partner SAP para implementación, soporte y evolución" />
-  <meta property="og:description" content="Implementamos, soportamos y optimizamos soluciones SAP modernas con más de 30 años de experiencia." />
+  <meta property="og:title" content="FLAG Soluciones | Partner SAP para implementación, evolución y soporte" />
+  <meta property="og:description" content="Implementamos, optimizamos y soportamos soluciones SAP modernas con más de 30 años de experiencia." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="assets/flag-logo.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png" />
@@ -182,7 +182,7 @@
               <div className={"hero-copy " + (live ? "hero-animated" : "")}>
                 <div className="hero-badge"><span className="hero-badge-dot"></span>SAP Silver Partner · Colombia y Paraguay</div>
                 <h1>Evolucione su ecosistema SAP con un <span className="gradient-text">partner experto</span></h1>
-                <p className="hero-sub">Implementamos, soportamos y optimizamos soluciones SAP para empresas que buscan modernizar sus procesos, integrar nuevas capacidades digitales y tomar mejores decisiones con datos confiables.</p>
+                <p className="hero-sub">Implementamos, optimizamos y soportamos soluciones SAP para empresas que buscan modernizar sus procesos, integrar nuevas capacidades digitales y tomar mejores decisiones con datos confiables.</p>
                 <div className="hero-cta">
                   <button className="btn btn-primary" onClick={() => window.openContactModal && window.openContactModal()}>
                     Solicitar asesoría SAP <I.arrow style={{width:14,height:14}} className="arr"/>
@@ -343,16 +343,7 @@
         ico: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m12 2 10 6.5-10 6.5L2 8.5z"/><path d="m2 14.5 10 6.5 10-6.5"/></svg>
       },
       {
-        id:"sf", label:"SAP SuccessFactors", num:"04",
-        tag:"Gestión humana cloud",
-        desc:"Suite HCM en la nube para talento, nómina, desempeño y aprendizaje, con experiencia de empleado moderna y mejores prácticas integradas.",
-        impl:["Configuración módulos HCM","Migración datos de empleados","Integración SAP ERP/S4","Flujos de aprobación","Capacitación usuarios RRHH"],
-        supp:["Soporte post-implementación","Administración de módulos","Actualizaciones semianuales","Nuevas configuraciones"],
-        kpis:[{v:"HCM",l:"Gestión humana"},{v:"Cloud",l:"SaaS nativo"},{v:"360°",l:"Talento"}],
-        ico: <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      },
-      {
-        id:"ana", label:"Analítica SAP", num:"05",
+        id:"ana", label:"Analítica SAP", num:"04",
         tag:"Datos al servicio del negocio",
         desc:"Integración, transformación y consolidación de datos para poner información confiable y oportuna al servicio de decisiones estratégicas.",
         impl:["Diseño de modelos de datos","SAP BW/4HANA","SAP Analytics Cloud","Power BI integrado con SAP","Gobierno y calidad de datos"],
@@ -587,6 +578,7 @@
     ];
 
     function Products() {
+      const [activeAcc, setActiveAcc] = useState(0);
       return (
         <section id="productos" className="section acc">
           <div className="wrap">
@@ -596,20 +588,26 @@
               <p style={{fontSize:16,color:"var(--slate)",marginTop:12,lineHeight:1.55}}>Herramientas y capacidades desarrolladas a partir de nuestra experiencia para mejorar gobierno, seguridad, automatización y eficiencia operativa.</p>
             </div>
             <div className="acc-grid reveal">
-              {PRODUCTS.map(a => (
-                <div key={a.name} className={"acc-card " + (a.featured?"featured":"")}>
-                  <span className="acc-tag">{a.tag}</span>
-                  <div className="acc-ico">{a.ico}</div>
-                  <div className="acc-name">{a.name}</div>
-                  {a.subtitle && <div className="acc-subtitle">{a.subtitle}</div>}
-                  <div className="acc-desc">{a.desc}</div>
-                  {(a.pts || a.note) && (
-                    <button type="button" className="svc-toggle" onClick={() => window.openDetailModal && window.openDetailModal({icon:a.ico, title:a.name, tag:a.tag, subtitle:a.subtitle, desc:a.desc, pts:a.pts, note:a.note})}>
-                      Ver más <I.arrow style={{width:13,height:13}}/>
-                    </button>
-                  )}
-                </div>
-              ))}
+              {PRODUCTS.map((a,i) => {
+                const isFeatured = activeAcc===i;
+                return (
+                  <div key={a.name} className={"acc-card " + (isFeatured?"featured":"")}
+                    onMouseEnter={() => setActiveAcc(i)} onFocus={() => setActiveAcc(i)}
+                    tabIndex="0" aria-current={isFeatured ? "true" : "false"}>
+                    <div className="acc-shine"></div>
+                    <span className="acc-tag">{a.tag}</span>
+                    <div className="acc-ico">{a.ico}</div>
+                    <div className="acc-name">{a.name}</div>
+                    {a.subtitle && <div className="acc-subtitle">{a.subtitle}</div>}
+                    <div className="acc-desc">{a.desc}</div>
+                    {(a.pts || a.note) && (
+                      <button type="button" className="svc-toggle" onClick={() => window.openDetailModal && window.openDetailModal({icon:a.ico, title:a.name, tag:a.tag, subtitle:a.subtitle, desc:a.desc, pts:a.pts, note:a.note})}>
+                        Ver más <I.arrow style={{width:13,height:13}}/>
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
@@ -715,40 +713,6 @@
       );
     }
 
-    // ======== TESTIMONIALS ========
-    const TESTIS = [
-      { text:"Flag Soluciones es una empresa muy comprometida con el cliente, entiende sus necesidades y demuestra interés constante por mejorar el servicio. Se nota el alto grado de responsabilidad y dedicación al realizar sus actividades.", name:"Martha Ballesteros", role:"Especialista en Informática · Intercolombia", ini:"MB" },
-      { text:"Lo que más valoro de Flag Soluciones es la proactividad y las respuestas acertadas del equipo de desarrollo para BW y BI, y el cumplimiento de los compromisos establecidos en los términos acordados.", name:"Cristian David Giraldo Castro", role:"Equipo Gestión de la Información · ISAGEN", ini:"CG" },
-      { text:"Flag Soluciones S.A.S. es una compañía que se preocupa por conocer a fondo los procesos y necesidades del cliente para brindar un servicio óptimo con soluciones personalizadas, adecuadas y oportunas.", name:"Juan David Martínez Pavony", role:"Director Aplicaciones de Tecnología · Grupo Familia", ini:"JM" },
-    ];
-
-    function Testimonials() {
-      return (
-        <section className="section testi-section">
-          <div className="wrap">
-            <div className="reveal" style={{textAlign:"center",maxWidth:640,margin:"0 auto 48px"}}>
-              <div className="eyebrow"><span className="eyebrow-dot"></span>Testimonios</div>
-              <h2 style={{fontSize:"clamp(24px,2.8vw,38px)",marginTop:16,color:"var(--navy)"}}>Lo que dicen nuestros clientes</h2>
-            </div>
-            <div className="testi-grid">
-              {TESTIS.map((t,i) => (
-                <div key={t.name} className="testi-card reveal" style={{transitionDelay:(i*.1)+"s"}}>
-                  <p className="testi-text">{t.text}</p>
-                  <div className="testi-author">
-                    <div className="testi-avatar">{t.ini}</div>
-                    <div>
-                      <div className="testi-name">{t.name}</div>
-                      <div className="testi-role">{t.role}</div>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      );
-    }
-
     // ======== NOSOTROS ========
     function Nosotros() {
       const [y1995, ref1] = useCounter(1995, 1800);
@@ -779,7 +743,7 @@
     }
 
     // ======== CONTACT MODAL ========
-    const SOL_OPTIONS = ["GROW with SAP","RISE with SAP","SAP BTP","SAP SuccessFactors","Analítica SAP","Seguridad SAP","Soporte funcional","Productos FLAG","Otro"];
+    const SOL_OPTIONS = ["GROW with SAP","RISE with SAP","SAP BTP","Analítica SAP","Seguridad SAP","Soporte funcional","Productos FLAG","Otro"];
 
     function ContactModal({ open, onClose, preselect }) {
       const [form, setForm] = useState({nombre:"",empresa:"",cargo:"",correo:"",celular:"",solucion:"",mensaje:""});
@@ -965,7 +929,6 @@
                   <li><a href="#soluciones">GROW with SAP</a></li>
                   <li><a href="#soluciones">RISE with SAP</a></li>
                   <li><a href="#soluciones">SAP BTP</a></li>
-                  <li><a href="#soluciones">SAP SuccessFactors</a></li>
                   <li><a href="#soluciones">Analítica SAP</a></li>
                 </ul>
               </div>
@@ -1038,7 +1001,6 @@
             <Methodology />
             <Products />
             <ClientsV2 />
-            <Testimonials />
             <Nosotros />
             <CtaAndContact />
           </main>
